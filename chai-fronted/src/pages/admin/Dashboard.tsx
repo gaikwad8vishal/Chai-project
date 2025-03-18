@@ -61,8 +61,8 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="flex min-h-screen">
-      <Navbar />
+    <div className=" min-h-screen ">
+      <Navbar/>
       <Sidebar />
       <main className="flex-1 p-6 bg-gray-100 dark:bg-gray-900">
         <h1 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Admin Dashboard</h1>
@@ -103,8 +103,7 @@ const Dashboard = () => {
               <h2 className="text-xl font-semibold mb-4">Order Statistics</h2>
               <ResponsiveContainer width="100%" height={300}>
                 <BarChart data={chartData}>
-                  <XAxis dataKey="name" stroke="#8884d8" />
-                  <YAxis />
+
                   <Tooltip />
                   <Bar dataKey="value" fill="#8884d8" barSize={50} />
                 </BarChart>

@@ -24,9 +24,10 @@ function App() {
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<LandingPage />} />
-        <Route path="/dashboard" element={<UserDashboard />} />
+        <Route path="/user/dashboard" element={<UserDashboard />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
+
 
         {/* Admin Routes */}
         <Route path="/admin/dashboard" element={<Dashboard />} />

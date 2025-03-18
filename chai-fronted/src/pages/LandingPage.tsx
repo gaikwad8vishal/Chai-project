@@ -7,10 +7,10 @@ export default function LandingPage() {
     <div className="min-h-screen flex flex-col">
       <Navbar />
       {/* Hero Section */}
-      <header className="bg-yellow-100 text-center py-20">
+      <header className="bg-[#9f470c] text py-20">
         <h1 className="text-4xl font-bold text-gray-800">Sip the Best, Enjoy the Rest!</h1>
         <p className="mt-4 text-gray-600">Premium organic teas, delivered to your door.</p>
-        <Link to="/products">
+        <Link to="/products" className="flex justify-center">
           <button className="mt-6 px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
             Shop Now
           </button>

@@ -1,11 +1,13 @@
 import axios from "axios";
-import { useState } from "react";
+import { set } from "mongoose";
+import { ReactElement, ReactNode, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 export function SignIn() {
   const [formData, setFormData] = useState({ username: "", password: "" });
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -14,6 +16,7 @@ export function SignIn() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
+    setLoading(true);
 
     try {
       const { data } = await axios.post("http://localhost:3000/user/signin", formData);
@@ -22,20 +25,34 @@ export function SignIn() {
       localStorage.setItem("token", data.token);
       localStorage.setItem("role", data.role); // Assuming backend sends 'role'
 
-      alert("Login successful!");
       // Redirect based on role
       if (data.role === "ADMIN") {
         console.log("Navigating to admin Dashboard");
         navigate("/admin/dashboard");
       } else {
         console.log("Navigating to User Dashboard");
-        navigate("/dashboard");
+        navigate("/user/dashboard");
       } // Redirect to dashboard or home
-      } catch (err: any) {
-        setError(err.message);
+      alert("Login successful!");
+
+      } catch (error: any) {
+
+        if (error.response && error.response.status === 401) {
+          localStorage.removeItem("token"); // Clear invalid token
+          window.location.reload(); // Reload the page
+          alert("Invalid credentials");
+        } else {
+          alert("Something went wrong! Please try again.");
+        }
+      }finally {
+        setLoading(false);
       }
+      
   };
 
+        function connecting(): ReactNode {
+        if (loading) return <p>L..</p>;
+      }
   return (
     <div className="flex items-center justify-center h-screen">
       <div className="w-full max-w-md border p-6 rounded-lg shadow-lg bg-slate-100">
@@ -77,7 +94,7 @@ export function SignIn() {
           </div>
           <div className="flex justify-center">
             <button type="submit" className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
-              Sign In
+            {loading ? "Signing in..." : "Sign In"} {/* 🔄 Change text dynamically */}
             </button>
           </div>
         </form>

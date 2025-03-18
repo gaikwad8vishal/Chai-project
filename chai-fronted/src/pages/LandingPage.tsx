@@ -2,7 +2,15 @@ import Footer from ".././components/Footer";
 import Navbar from ".././components/Navbar";
 import { Link } from "react-router-dom";
 
+import  { LocationDisplay } from "../components/LocationDetector";
+
 export default function LandingPage() {
+
+;
+
+
+
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
@@ -16,6 +24,8 @@ export default function LandingPage() {
           </button>
         </Link>
       </header>
+
+
 
       {/* Featured Teas */}
       <section className="py-12 px-6 text-center">

@@ -1,8 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
-import Products from "./pages/Products";
-
-
 // Admin pages
 import Dashboard from "./pages/admin/Dashboard";
 import Orders from "./pages/admin/Orders";
@@ -12,7 +9,6 @@ import Users from "./pages/admin/Users";
 // If you have a sidebar
 import { SignIn } from "./pages/SignIn";
 import { SignUp } from "./pages/SignUp";
-import AdminOrders from "./pages/admin/Orders";
 import AddProduct from "./pages/admin/products/add";
 import UpdateProduct from "./pages/admin/products/edit";
 import AdminProducts from "./pages/admin/adminProducts";

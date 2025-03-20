@@ -37,13 +37,13 @@ const UserLocation = () => {
 
   return (
     <div className="">
-  <h2 className="text-sm font-semibold">Deliver to</h2>
+  <h2 className="text-sm text-white font-semibold">Deliver to</h2>
   <div className="flex items-center gap-1"> 
     <FaMapMarkerAlt className="text-red-500" />
     {location ? (
-      <p className="text-green-600">{location}</p>
+      <p className="text-white">{location}</p>
     ) : (
-      <p className="text-green-600">India!</p>
+      <p className="text-white">India!</p>
     )}
   </div>
 </div>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import {  Navbar2 } from "../components/Navbar";
 
 
 
@@ -71,53 +72,47 @@ const UserDashboard = () => {
     fetchData();
   }, [navigate]);
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/signin");
-  };
 
-  if (loading) return <p className="text-center text-lg">Wait a sec...!</p>;
 
   return (
-    <div className="container mx-auto p-6">
+    <div className="userdashbody h-screen">
+    <div className="    mx-auto p-6">
+      <Navbar2/>
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold">{greeting}, {user?.username}!</h1>
-        <button onClick={handleLogout} className="bg-red-500 text-white px-4 py-2 rounded">
-          Logout
-        </button>
+       
       </div>
 
       {/* Orders Section */}
       <h2 className="text-2xl font-semibold mt-6">Your Orders</h2>
       <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
       {orders.length > 0 ? (
-  orders.map((order) => (
-    <div key={order.id} className="border rounded-lg p-4 shadow-lg p-4">
-      <p className="text-lg font-bold">Order ID: {order.id}</p>
-      <p>Total: ₹{order.totalPrice.toFixed(2)}</p>
-      <p>Status: <span className="font-semibold">{order.status}</span></p>
-      <p className="text-sm text-gray-500">Placed on: {new Date(order.createdAt).toLocaleDateString()}</p>
+          orders.map((order) => (
+            <div key={order.id} className=" bg-white/10 backdrop-blur-md  rounded-lg p-4 p-4">
+              <p className="text-lg font-bold">Order ID: {order.id}</p>
+              <p>Total: ₹{order.totalPrice.toFixed(2)}</p>
+              <p>Status: <span className="font-semibold">{order.status}</span></p>
+              <p className="text-sm text-gray-500">Placed on: {new Date(order.createdAt).toLocaleDateString()}</p>
 
-      {/* ✅ Show Ordered Products */}
-      <div className="mt-3">
-        <p className="font-semibold">Products:</p>
-        <ul className="list-disc pl-5">
-          {order.items.map((item) => (
-            <li key={item.id} className="text-sm">
-              {item.name} (x{item.quantity}) - ₹{(item.price * item.quantity).toFixed(2)}
-            </li>
-          ))}
-        </ul>
+              {/* ✅ Show Ordered Products */}
+              <div className="mt-3">
+                <p className="font-semibold">Products:</p>
+                <ul className="list-disc pl-5">
+                  {order.items.map((item) => (
+                    <li key={item.id} className="text-sm">
+                      {item.name} (x{item.quantity}) - ₹{(item.price * item.quantity).toFixed(2)}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ))
+        ) : (<p>No orders found.</p> 
+
+        )}
       </div>
     </div>
-  ))
-) : (
-  <p>No orders found.</p>
-)}
-
-      </div>
-    </div>
-  );
+</div>)
 };
 
 export default UserDashboard;

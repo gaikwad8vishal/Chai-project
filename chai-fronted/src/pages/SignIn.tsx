@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Eye, EyeOff } from "lucide-react";
 import { set } from "mongoose";
 import { ReactElement, ReactNode, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -8,6 +9,7 @@ export function SignIn() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [showPassword, setshowpassword] = useState(true);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -54,8 +56,9 @@ export function SignIn() {
         if (loading) return <p>L..</p>;
       }
   return (
-    <div className="flex items-center justify-center h-screen">
-      <div className="w-full max-w-md border p-6 rounded-lg shadow-lg bg-slate-100">
+    <div className="flex signbody items-center justify-center h-screen">
+      
+      <div className="w-full bg-white/50 backdrop-blur-lg  max-w-md  p-6 rounded-xl  ">
         <div className="text-center">
           <Link to="/" className="text-4xl font-bold text-green-700 mb-8 flex items-center justify-center">
             🍵 Chai-Chai
@@ -82,15 +85,22 @@ export function SignIn() {
             <label htmlFor="password" className="block text-sm font-medium text-gray-700">
               Password
             </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 sm:text-sm"
-            />
+            <div className="relative">
+                <input
+                id="password"
+                name="password"
+                type={showPassword ? "text" : "password"}
+                value={formData.password}
+                onChange={handleChange}
+                required
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 sm:text-sm"
+                />
+                
+                  <div onClick={() => setshowpassword(!showPassword)}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700">
+                    {showPassword ? <EyeOff size={20} />  :  <Eye size={20}/> }
+                  </div>
+            </div>  
           </div>
           <div className="flex justify-center">
             <button type="submit" className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">

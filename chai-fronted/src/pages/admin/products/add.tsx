@@ -11,33 +11,44 @@ const AddProduct = () => {
     stock: "",
     imageUrl: "",
   });
-  console.log("product");
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setProduct({ ...product, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+  
+    setProduct((prevProduct) => ({
+      ...prevProduct,
+      [name]: name === "price" ? (value ? parseFloat(value) : "") 
+            : name === "stock" ? (value ? parseInt(value) : "") 
+            : value,
+    }));
   };
+  
+
+  
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const token = localStorage.getItem("token") ;
 
-    console.log("token", token);
     try {
+
         await axios.post("http://localhost:3000/admin/add-product", product, {
             headers: { Authorization: `Bearer ${token}` },
             withCredentials: true, // Allow credentials (if using cookies)
           });
           
       alert("Product added successfully!");
-      navigate("/admin/products");
-    } catch (error) {
+      navigate("/admin/products/all");
+    } catch (error) { 
       console.error("Error adding product:", error);
       alert("Failed to add product.");
     }
   };
 
   return (
-    <div className="container mx-auto p-6">
+  <div className="flex adminbody h-screen items-center justify-center ">
+    <div className=" mt-8 w-96 container border rounded-2xl h-92 p-6">
         <Link to="/" className="text-4xl font-bold text-green-700 mb-8 flex items-center justify-center">
             🍵 Chai-Chai
           </Link>
@@ -53,6 +64,7 @@ const AddProduct = () => {
         </button>
       </form>
     </div>
+  </div>
   );
 };
 

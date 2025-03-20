@@ -10,9 +10,9 @@ import Users from "./pages/admin/Users";
 import { SignIn } from "./pages/SignIn";
 import { SignUp } from "./pages/SignUp";
 import AddProduct from "./pages/admin/products/add";
-import UpdateProduct from "./pages/admin/products/edit";
 import AdminProducts from "./pages/admin/adminProducts";
 import UserDashboard from "./pages/userDashboard";
+import { AllProducts } from "./components/Sidebar";
 
 function App() {
   return (
@@ -28,14 +28,13 @@ function App() {
         {/* Admin Routes */}
         <Route path="/admin/dashboard" element={<Dashboard />} />
         <Route path="/admin/orders" element={<Orders />} />
-        <Route path="/admin/products" element={<AdminProducts />} />
+        <Route path="/admin/products/all" element={<AllProducts />} />
         <Route path="/admin/products/add" element={<AddProduct />} />
-        <Route path="/admin/products/edit/:id" element={<UpdateProduct />} />
 
         {/* <Route path="/admin/products" element={<AdminProducts />} /> */}
         <Route path="/admin/users" element={<Users />} />
       </Routes>
-    </Router>
+    </Router> 
   );
 }
 

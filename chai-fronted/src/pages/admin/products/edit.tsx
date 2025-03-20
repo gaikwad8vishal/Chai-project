@@ -1,59 +1,116 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
+// import { useState } from "react";
+// import axios from "axios";
 
-const EditProduct = () => {
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const [product, setProduct] = useState({ name: "", description: "", price: "", stock: "", imageUrl: "" });
 
-  useEffect(() => {
-    const fetchProduct = async () => {
-      const token = localStorage.getItem("token");
-      try {
-        const response = await axios.get(`/all-products`);
-        const existingProduct = response.data.find((p: any) => p.id === id);
-        setProduct(existingProduct);
-      } catch (error) {
-        console.error("Error fetching product:", error);
-      }
-    };
-    fetchProduct();
-  }, [id]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setProduct({ ...product, [e.target.name]: e.target.value });
-  };
+// export const UpdateProduct = ({ product , onUpdate, onCancel }) => {
+//   const [formData, setFormData] = useState({
+//     name: product.name,
+//     description: product.description,
+//     price: product.price,
+//     stock: product.stock,
+//     imageUrl: product.imageUrl,
+//   });
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const token = localStorage.getItem("token");
+//   const [loading, setLoading] = useState(false);
+//   const [message, setMessage] = useState("");
 
-    try {
-      await axios.put(`/update-product/${id}`, product, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      alert("Product updated successfully!");
-      navigate("/admin/products");
-    } catch (error) {
-      console.error("Error updating product:", error);
-      alert("Failed to update product.");
-    }
-  };
+//   const handleChange = (e) => {
+//     setFormData({ ...formData, [e.target.name]: e.target.value });
+//   };
 
-  return (
-    <div className="container mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-4">Edit Product</h1>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input type="text" name="name" value={product.name} onChange={handleChange} required className="w-full p-2 border" />
-        <input type="number" name="price" value={product.price} onChange={handleChange} required className="w-full p-2 border" />
-        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
-          Update Product
-        </button>
-      </form>
-    </div>
-  );
-};
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     setLoading(true);
+//     setMessage("");
 
-export default EditProduct;
+//     try {
+//       await axios.put(
+//         `http://localhost:3000/admin/update-product/${product.id}`,
+//         formData,
+//         {
+//           withCredentials: true,
+//           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+//         }
+//       );
 
+//       setMessage("Product updated successfully!");
+//       setLoading(false);
+//       onUpdate(); // Refresh list
+//     } catch (error) {
+//       console.error("Error updating product:", error);
+//       setMessage("Failed to update product!");
+//       setLoading(false);
+//     }
+//   };
+
+//   return (
+//     <div className="max-w-lg mx-auto mt-10 p-6 bg-gray-900 shadow-md rounded-lg">
+//       <h2 className="text-2xl font-bold mb-4 text-white">Update Product</h2>
+
+//       {message && <p className="text-red-500">{message}</p>}
+
+//       <form onSubmit={handleSubmit} className="space-y-4">
+//         <input
+//           type="text"
+//           name="name"
+//           placeholder="Product Name"
+//           value={formData.name}
+//           onChange={handleChange}
+//           className="w-full p-2 border rounded"
+//           required
+//         />
+//         <textarea
+//           name="description"
+//           placeholder="Product Description"
+//           value={formData.description}
+//           onChange={handleChange}
+//           className="w-full p-2 border rounded"
+//         />
+//         <input
+//           type="number"
+//           name="price"
+//           placeholder="Price"
+//           value={formData.price}
+//           onChange={handleChange}
+//           className="w-full p-2 border rounded"
+//           required
+//         />
+//         <input
+//           type="number"
+//           name="stock"
+//           placeholder="Stock"
+//           value={formData.stock}
+//           onChange={handleChange}
+//           className="w-full p-2 border rounded"
+//           required
+//         />
+//         <input
+//           type="text"
+//           name="imageUrl"
+//           placeholder="Image URL"
+//           value={formData.imageUrl}
+//           onChange={handleChange}
+//           className="w-full p-2 border rounded"
+//         />
+
+//         <div className="flex gap-2">
+//           <button
+//             type="submit"
+//             className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition w-full"
+//             disabled={loading}
+//           >
+//             {loading ? "Updating..." : "Update Product"}
+//           </button>
+//           <button
+//             type="button"
+//             onClick={onCancel}
+//             className="bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700 transition w-full"
+//           >
+//             Cancel
+//           </button>
+//         </div>
+//       </form>
+//     </div>
+//   );
+// };

@@ -56,9 +56,6 @@ export const Navbar2 = () => {
       <div className="logo">
         <a className="" href="/">☕️ Chai-Chai</a>
       </div>
-      <div>
-        <LocationDisplay/>
-      </div>
       
       <div className="nav-links absoulte">
         <a href="/" className="active">Home</a>

@@ -281,7 +281,3 @@
   cursor: pointer;
   transition: transform 0.2s;
 }
-
-.Button3.adminbody:hover {
-  transform: scale(1.05);
-}

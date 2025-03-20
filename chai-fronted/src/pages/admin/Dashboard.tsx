@@ -9,8 +9,10 @@ import { Navbar1, Navbar2} from "../../components/Navbar";
 
 
 const Dashboard = () => {
+
+  
   const [stats, setStats] = useState<{ 
-    totalOrders: number; 
+    totalOrders: number ; 
     totalUsers: number;
     pendingOrders: number;
     deliveredOrders: number;
@@ -18,6 +20,7 @@ const Dashboard = () => {
   } | null>(null);
   const [recentOrders, setRecentOrders] = useState<{ id: string; status: string }[]>([]);
   const [loading, setLoading] = useState(true);
+
 
   useEffect(() => {
     const fetchStats = async () => {
@@ -70,40 +73,58 @@ const Dashboard = () => {
             <Sidebar />
           </div>
           <div className="border-xl"> 
-            <main className="flex-1 p-6 mx-4  ronded-xl  bg-white/20 bg-blur(10)  rounded-xl dark:bg-gray-900">
+            <main className="flex-1 p-6 mx-4  ronded-xl pr-92 bg-white/20 bg-blur(10)  rounded-xl dark:bg-gray-900">
               <h1 className="text-3xl font-bold mb-6 text-white ">Admin Dashboard</h1>
 
-              {loading ? (
-                <div className="flex justify-center items-center w-full h-[400px] bg-gray-200 dark:bg-gray-700 animate-pulse">
-                <p className="text-lg grid md:grid-cols-3 text-center animate-pulse">Loading stats...</p>
-                </div>
-              ) : (
                 <>
                   {/* Cards Section */}
-                  <div className="grid md:grid-cols-3 gap-6">
-                    <Card className="bg-white dark:bg-gray-800 shadow-lg flex items-center p-4">
-                      <Package className="text-green-500" size={40} />
-                      <CardContent className="ml-4">
-                        <CardTitle>Total Orders</CardTitle>
-                        <p className="text-2xl font-bold">{stats?.totalOrders}</p>
-                      </CardContent>
-                    </Card>
+                  <div className="grid md:grid-cols-3  gap-6">
+                    {loading ? (
+                      <div className="bg-white/20 bg-blur(10) flex justify-center items-center animate-pulse rounded-xl  ">
+                        <span className="">loading...</span>
+                      </div>
+                    ) : (
+                      <div>
+                        <Card className="bg-white/20 rounded-xl dark:bg-gray-800  flex  items-center p-4">
 
-                    <Card className="bg-white dark:bg-gray-800 shadow-lg flex items-center p-4">
+                            <Package className="text-green-500" size={40} />
+                            <CardContent className="ml-4">
+                              <CardTitle>Total Orders</CardTitle>
+                              <p className="text-2xl font-bold">{stats?.totalOrders}</p>
+                            </CardContent>
+
+                        </Card>
+                      </div>
+                    )}
+
+                    {loading ? (
+                      <div className="bg-white/20 flex justify-center items-center bg-blur(10) animate-pulse rounded-xl  ">
+                        <span className="  ">loading...</span>
+                      </div>                    
+                    ) : (
+                    <Card className="bg-white/20 rounded-xl  dark:bg-gray-800 shadow-lg flex items-center p-4">
                       <Users className="text-blue-500" size={40} />
                       <CardContent className="ml-4">
                         <CardTitle>Total Users</CardTitle>
-                        <p className="text-2xl font-bold">{stats?.totalUsers}</p>
+                        <p className="text-xl font-bold">{stats?.totalOrders}</p>
                       </CardContent>
                     </Card>
+                    )}
 
-                    <Card className="bg-white dark:bg-gray-800 shadow-lg flex items-center p-4">
-                      <Package className="text-orange-500" size={40} />
-                      <CardContent className="ml-4">
-                        <CardTitle>Pending Orders</CardTitle>
-                        <p className="text-2xl font-bold">{stats?.pendingOrders}</p>
-                      </CardContent>
-                    </Card>
+                    {loading ? (
+                      <div className="bg-white/20 flex justify-center items-center bg-blur(10) animate-pulse rounded-xl">
+                      <div className=""> loading...</div></div>
+                    ) : (
+                      <div>
+                      <Card className="bg-white/20 rounded-xl  dark:bg-gray-800 shadow-lg flex items-center p-4">
+                        <Package className="text-orange-500" size={40} />
+                        <CardContent className="ml-4">
+                          <CardTitle>Pending Orders</CardTitle>
+                            <p className="text-2xl font-bold">{stats?.pendingOrders}</p>
+                        </CardContent>
+                      </Card>
+                      </div>
+                    )}
                   </div>
 
                   {/* Chart Section */}
@@ -137,7 +158,7 @@ const Dashboard = () => {
                     </ul>
                   </div>
                 </>
-              )}
+              
             </main>
           </div>
         </div>

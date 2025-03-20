@@ -10,7 +10,6 @@ import Users from "./pages/admin/Users";
 import { SignIn } from "./pages/SignIn";
 import { SignUp } from "./pages/SignUp";
 import AddProduct from "./pages/admin/products/add";
-import AdminProducts from "./pages/admin/adminProducts";
 import UserDashboard from "./pages/userDashboard";
 import { AllProducts } from "./components/Sidebar";
 
@@ -23,8 +22,7 @@ function App() {
         <Route path="/user/dashboard" element={<UserDashboard />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
-
-
+        
         {/* Admin Routes */}
         <Route path="/admin/dashboard" element={<Dashboard />} />
         <Route path="/admin/orders" element={<Orders />} />

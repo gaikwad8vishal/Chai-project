@@ -17,7 +17,9 @@ const Users = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try { 
-        const response = await axios.get("http:localhost:3000/admin/users", { withCredentials: true });
+        const response = await axios.get("http:localhost:3000/admin/users", { 
+          withCredentials: true 
+        });
         setUsers(response.data);
       } catch (error) {
         console.error("Error fetching users:", error);

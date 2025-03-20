@@ -22,10 +22,10 @@ function App() {
         <Route path="/user/dashboard" element={<UserDashboard />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
-        
+
         {/* Admin Routes */}
         <Route path="/admin/dashboard" element={<Dashboard />} />
-        <Route path="/admin/orders" element={<Orders />} />
+        <Route path="/admin/all-orders" element={<Orders />} />
         <Route path="/admin/products/all" element={<AllProducts />} />
         <Route path="/admin/products/add" element={<AddProduct />} />
 

@@ -51,46 +51,49 @@ const updateOrderStatus = async (orderId: string, newStatus: string) => {
   
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Admin - Manage Orders</h1>
-      <table className="w-full border-collapse border border-gray-300">
-        <thead>
-          <tr className="bg-gray-100">
-            <th className="border p-2">ID</th>
-            <th className="border p-2">User</th>
-            <th className="border p-2">Total</th>
-            <th className="border p-2">Status</th>
-            <th className="border p-2">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {orders.map((order: any) => (
-            <tr key={order.id} className="border-b">
-              <td className="border p-2">{order.id}</td>
-              <td className="border p-2">{order.user.name}</td>
-              <td className="border p-2">₹{order.total}</td>
-              <td className="border p-2">{order.status}</td>
-              <td className="border p-2">
-                <button
-                  onClick={() => updateOrderStatus(order.id, "OUT_FOR_DELIVERY")}
-                  className="bg-blue-500 text-white px-3 py-1 rounded mr-2"
-                >
-                  Out for Delivery
-                </button>
-                <button
-                  onClick={() => updateOrderStatus(order.id, "DELIVERED")}
-                  className="bg-green-500 text-white px-3 py-1 rounded mr-2"
-                >
-                  Mark Delivered
-                </button>
-                <button className="bg-red-500 text-white px-3 py-1 rounded">
-                  Cancel
-                </button>
-              </td>
+    <div className=" px-24 py-4 bg-slate-400 h-screen ">
+      <div className=" z-10 rounded-xl w-full bg-blur(10) bg-white/20">
+        <h1 className="text-2xl font-bold  m-4">Admin - Manage Orders</h1>
+        <table className="w-full border-collapse border border-gray-300">
+          <thead>
+            <tr className="bg-gray-500">
+              <th className="border p-2">ID</th>
+              <th className="border p-2">User</th>
+              <th className="border p-2">Total</th>
+              <th className="border p-2">Status</th>
+              <th className="border p-2">Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {orders.map((order: any) => (
+              <tr key={order.id} className="border-b">
+                <td className="border p-2">{order.id}</td>
+                <td className="border p-2">{order.user.name}</td>
+                <td className="border p-2">₹{order.total}</td>
+                <td className="border p-2">{order.status}</td>
+                <td className="border p-2">
+                  <button
+                    onClick={() => updateOrderStatus(order.id, "OUT_FOR_DELIVERY")}
+                    className="bg-blue-500 text-white px-3 py-1 rounded mr-2"
+                  >
+                    Out for Delivery
+                  </button>
+                  <button
+                    onClick={() => updateOrderStatus(order.id, "DELIVERED")}
+                    className="bg-green-500 text-white px-3 py-1 rounded mr-2"
+                  >
+                    Mark Delivered
+                  </button>
+                  <button className="bg-red-500 text-white px-3 py-1 rounded">
+                    Cancel
+                  </button>
+                </td>
+              </tr>
+            ))}
+            
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

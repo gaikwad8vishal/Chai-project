@@ -13,6 +13,9 @@ export default function Sidebar() {
         <Link to="/admin/products/update" className=" hover:scale-105 Button3 p-2 rounded">update Products</Link>
         <Link to="/admin/products/all" className=" p-2  hover:scale-105 Button3 rounded">All Product</Link>
         <Link to={"/admin/products/add"} className="  hover:scale-105 p-2 Button3 rounded" > Add Product</Link>
+        <Link to={"/admin/all-orders"} className="  hover:scale-105 p-2 Button3 rounded" > All-orders</Link>
+        <Link to={"/admin/users"} className="  hover:scale-105 p-2 Button3 rounded" > All-Users</Link>
+
       </nav>
     </div>
   );

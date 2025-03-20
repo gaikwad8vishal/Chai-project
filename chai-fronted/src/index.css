@@ -221,7 +221,7 @@
   margin: 0;
   padding: 0;
   margin-top: 0px;
-  overflow: hidden;
+  overflow: scroll;
   position: relative;
 }
 
@@ -269,3 +269,19 @@
 }
 
 
+
+
+.Button3 {
+  background: white;
+  color: black;
+  padding: 12px 24px;
+  border-radius: 25px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.Button3.adminbody:hover {
+  transform: scale(1.05);
+}

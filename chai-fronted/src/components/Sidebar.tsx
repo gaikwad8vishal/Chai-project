@@ -2,14 +2,16 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 
 export default function Sidebar() {
+
+
   return (
-    <div className="h-screen w-64 bg-green-900 text-white flex flex-col p-5">
+    <div className=" w-64 z-100 shadow-md rounded-lg bg-white/10  text-white flex flex-col p-5">
       <h2 className="text-2xl font-bold mb-6">🍵 Admin Panel</h2>
       <nav className="flex flex-col space-y-4">
-        <Link to="/admin" className="hover:bg-green-700 p-2 rounded">📊 Dashboard</Link>
-        <Link to="/admin/products/update" className="hover:bg-green-700 p-2 rounded">👥 update Product    s</Link>
-        <Link to="/admin/products/all" className="hover:bg-green-700 p-2 rounded">📦 All Product</Link>
-        <Link to={"/admin/products/add"} className="hover:bg-green-700 p-2 rounded" > Add Product</Link>
+        <Link to="/admin/dashboard" className="Button3 rounded">Dashboard</Link>
+        <Link to="/admin/products/update" className="hover:bg-green-700 Button3 p-2 rounded">update Products</Link>
+        <Link to="/admin/products/all" className="hover:bg-green-700 p-2 Button3 rounded">All Product</Link>
+        <Link to={"/admin/products/add"} className="hover:bg-green-700 p-2 Button3 rounded" > Add Product</Link>
       </nav>
     </div>
   );
@@ -199,13 +201,18 @@ export const AllProducts = () => {
     };
 
   return (
-    <div className="p-6">
-      <div className="flex">
+    <div className="p-6 adminbody h-screen ">
+      <div className="mt-8 ml-4">
+      <Link to="/" className="text-4xl font-bold text-gray-700  ">
+            ☕️ Chai-Chai
+      </Link>
+      </div>
+      <div className="flex mt-16 ml-4 gap-12 ">
         <Sidebar/>
         <div>
-        <h1 className="text-3xl font-bold mb-4">All Products</h1>
+        <h1 className="text-3xl font-bold mb-4">All Products...</h1>
 
-        <div className=" w-92">
+        <div className="  ">
         {editingProduct ? ( 
           <div className="fixed inset-0 bg-black/50 backdrop-blur-md flex items-center justify-center z-50">
               <div className="bg-white p-6 rounded-lg shadow-lg z-50">
@@ -220,9 +227,10 @@ export const AllProducts = () => {
               </div>
             </div>
             ) : (
-              <div className="grid grid-cols-3  gap-4">
+              <div className="w-full bg-white">
+              <div className="grid grid-cols-3 gap-4">
                 {products.map((product) => (
-                  <div key={product.id} className="border p-4 rounded-lg shadow-md">
+                  <div key={product.id} className="border p-4 w-92 rounded-lg shadow-md">
                     <img
                       src={product.imageUrl}
                       alt={product.name}
@@ -248,7 +256,7 @@ export const AllProducts = () => {
                   </div>
                   </div>
                 ))}
-        </div>
+        </div></div>
       )}</div></div></div>
     </div>
   );
@@ -367,7 +375,7 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({ product, onUpdate, onCanc
           <button
             type="button"
             onClick={onCancel}
-            className="bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700 transition w-full"
+            className="bg-gray-600 text-whte px-4 py-2 rounded-md hover:bg-gray-700 transition w-full"
           >
             Cancel
           </button>

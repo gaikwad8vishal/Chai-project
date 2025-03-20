@@ -162,7 +162,6 @@ import { useState } from "react";
 
 import { useEffect } from "react";
 import axios from "axios";
-import { Line } from "recharts";
 import { Link } from "react-router-dom";
 
 interface Product {

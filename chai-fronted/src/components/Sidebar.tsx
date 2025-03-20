@@ -3,6 +3,7 @@ import { useState } from "react";
 
 
 export default function Sidebar() {
+  
 
   const isActive = true;
   return (
@@ -219,7 +220,7 @@ export const AllProducts = () => {
         <div className="  ">
         {editingProduct ? ( 
           <div className="fixed inset-0 bg-black/50 backdrop-blur-md flex items-center justify-center z-50">
-              <div className="bg-white p-6 rounded-lg shadow-lg z-50">
+              <div className=" p-6 rounded-lg shadow-lg z-50">
                 <UpdateProduct
                   product={editingProduct}
                   onUpdate={() => {
@@ -231,7 +232,7 @@ export const AllProducts = () => {
               </div>
             </div>
             ) : (
-              <div className="w-full bg-white">
+              <div className="w-full ">
               <div className="grid grid-cols-3 gap-4">
                 {products.map((product) => (
                   <div key={product.id} className="border p-4 w-92 rounded-lg shadow-md">

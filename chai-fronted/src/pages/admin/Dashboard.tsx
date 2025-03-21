@@ -5,7 +5,8 @@ import { Card, CardContent, CardTitle } from "../../components/ui/card";
 import { Users, Package, DollarSign } from "lucide-react";
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, PieChart, Pie, Cell } from "recharts";
 import Footer from "../../components/Footer";
-import { AdminNavbar, Navbar2 } from "../../components/Navbar";
+import Navbar from "../../components/Navbar";
+
 
 // Define Types
 interface Order {
@@ -93,7 +94,7 @@ const Dashboard = () => {
 
   return (
     <div className="adminbody h-screen">
-      <AdminNavbar />
+      <Navbar />
       <div className="">
         <div className="gap-4 flex">
           <div className="ml-4">

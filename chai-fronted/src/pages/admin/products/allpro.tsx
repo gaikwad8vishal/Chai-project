@@ -1,93 +1,137 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect } from "react";
 import axios from "axios";
+import Sidebar from "../../../components/Sidebar";
+import { useState } from "react";
+import { UpdateProduct } from "./edit";
+
 
 interface Product {
   id: string;
   name: string;
-  description?: string;
+  description: string;
   price: number;
   stock: number;
-  imageUrl?: string;
+  imageUrl: string;
 }
 
-const AdminProducts = () => {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const token = localStorage.getItem("token");
+export const AdminAllProducts = () => {
+
+  const [products, setProducts] = useState<Product[]>([]);
+  const [editingProduct, setEditingProduct] = useState<Product | null>(null);
+
+  useEffect(() => { 
+    AdminfetchProducts();
+  }, []);
+  
+    
+    const AdminfetchProducts = async () => {
       try {
-        const response = await axios.get("/all-products", {
-          headers: { Authorization: `Bearer ${token}` },
+        const response = await axios.get("http://localhost:3000/admin/all-products", {
+          withCredentials: true,
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         });
-        setProducts(response.data);
+
+        console.log("Fetched Products:", response.data); // Debugging
+
+        if (response.data && Array.isArray(response.data.products)) {
+          setProducts(response.data.products);
+        } else {
+          console.error("Invalid data format", response.data);
+        }
       } catch (error) {
         console.error("Error fetching products:", error);
-      } finally {
-        setLoading(false);
       }
     };
 
-    fetchProducts();
-  }, []);
+   // Function to delete a product
+    const AdmindeleteProduct = async (productId: string) => {
 
-  const handleDelete = async (id: string) => {
-    const token = localStorage.getItem("token");
-    if (!window.confirm("Are you sure you want to delete this product?")) return;
+      const confirmDelete = window.confirm("Are you sure you want to delete this product?");
+      if (!confirmDelete) return;
 
-    try {
-      await axios.delete(`/delete-product/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      alert("Product deleted successfully!");
-      setProducts(products.filter((product) => product.id !== id));
-    } catch (error) {
-      console.error("Error deleting product:", error);
-      alert("Failed to delete product.");
-    }
-  };
+      try {
+        await axios.delete(`http://localhost:3000/admin/delete-product/${productId}`, {
+          withCredentials: true,
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        });
 
-  if (loading) return <div className="text-center text-lg">Loading...</div>;
+        // Remove deleted product from state without reloading
+        setProducts(products.filter((product) => product.id !== productId));
+      } catch (error) {
+        console.error("Error deleting product:", error);
+      }
+    };
+
+
+  const AdminupdateProduct = (productId: string) => {
+    const productToEdit = products.find((product) => product.id === productId);
+      if (productToEdit) {
+        setEditingProduct(productToEdit);
+      }
+    };
 
   return (
-    <div className="container mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-4">Manage Products</h1>
-      <Link to="/admin/products/add" className="bg-blue-500 text-white px-4 py-2 rounded mb-4 inline-block">
-        + Add Product
-      </Link>
-      <div className="overflow-x-auto">
-        <table className="w-full border-collapse border">
-          <thead>
-            <tr className="bg-gray-200">
-              <th className="p-2 border">Name</th>
-              <th className="p-2 border">Price</th>
-              <th className="p-2 border">Stock</th>
-              <th className="p-2 border">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {products.map((product) => (
-              <tr key={product.id} className="border">
-                <td className="p-2 border">{product.name}</td>
-                <td className="p-2 border">₹{product.price}</td>
-                <td className="p-2 border">{product.stock}</td>
-                <td className="p-2 border">
-                  <Link to={`/admin/products/edit/${product.id}`} className="text-blue-500 mr-2">
-                    Edit
-                  </Link>
-                  <button onClick={() => handleDelete(product.id)} className="text-red-500">
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+    <div className="p-6 adminbody h-screen ">
+      <div className="mt-8 ml-4">
       </div>
+      <div className="flex mt-16 ml-4 gap-12 ">
+        <Sidebar/>
+        <div>
+        <h1 className="text-3xl font-bold mb-4">All Products...</h1>
+
+        <div className="  ">
+        {editingProduct ? ( 
+          <div className="fixed inset-0 bg-black/50 backdrop-blur-md flex items-center justify-center z-50">
+              <div className=" p-6 rounded-lg shadow-lg z-50">
+                <UpdateProduct
+                  product={editingProduct}
+                  onUpdate={() => {
+                    AdminfetchProducts();
+                    setEditingProduct(null);
+                  }}
+                  onCancel={() => setEditingProduct(null)}
+                />
+              </div>
+            </div>
+            ) : (
+              <div className="w-full ">
+              <div className="grid grid-cols-3 gap-4">
+                {products.map((product) => (
+                  <div key={product.id} className="border p-4 w-92 rounded-lg shadow-md">
+                    <img
+                      src={product.imageUrl}
+                      alt={product.name}
+                      className="w-full h-40 object-cover mb-2 rounded"
+                    />
+                    <h2 className="text-xl font-semibold">{product.name}</h2>
+                    <p>{product.description}</p>
+                    <p className="text-green-600 font-bold">₹{product.price}</p>
+                    <p>Stock: {product.stock}</p>
+                  <div className="flex justify-between">
+                    <button
+                      onClick={() => AdmindeleteProduct(product.id)}
+                      className="bg-red-500 text-white px-4 py-2 rounded mt-2"
+                    >
+                      Delete
+                    </button>
+                    <button
+                      onClick={() => AdminupdateProduct(product.id)}
+                      className="bg-green-500 text-white px-4 py-2 rounded mt-2"
+                    >
+                      Update
+                    </button>
+                  </div>
+                  </div>
+                ))}
+        </div></div>
+      )}</div></div></div>
     </div>
   );
 };
 
-export default AdminProducts;
+
+
+
+
+

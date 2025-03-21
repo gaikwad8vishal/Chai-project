@@ -1,10 +1,8 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { Link } from "react-router-dom";
 
-const AddProduct = () => {
-  const navigate = useNavigate();
-  const [product, setProduct] = useState({
+export const AddProduct = () => {
+  const [formData, setFormData] = useState({
     name: "",
     description: "",
     price: "",
@@ -12,60 +10,104 @@ const AddProduct = () => {
     imageUrl: "",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-  
-    setProduct((prevProduct) => ({
-      ...prevProduct,
-      [name]: name === "price" ? (value ? parseFloat(value) : "") 
-            : name === "stock" ? (value ? parseInt(value) : "") 
-            : value,
-    }));
-  };
-  
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
 
-  
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    const token = localStorage.getItem("token") ;
+    setLoading(true);
 
     try {
+      const response = await fetch("http://localhost:3000/admin/add-product", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`, // Admin Auth Token
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          description: formData.description,
+          price: parseFloat(formData.price),
+          stock: parseInt(formData.stock),
+          imageUrl: formData.imageUrl,
+        }),
+      });
 
-        await axios.post("http://localhost:3000/admin/add-product", product, {
-            headers: { Authorization: `Bearer ${token}` },
-            withCredentials: true, // Allow credentials (if using cookies)
-          });
-          
-      alert("Product added successfully!");
-      navigate("/admin/products/all");
-    } catch (error) { 
-      console.error("Error adding product:", error);
-      alert("Failed to add product.");
+      const data = await response.json();
+      if (response.ok) {
+        setMessage("Product added successfully!");
+        setFormData({ name: "", description: "", price: "", stock: "", imageUrl: "" });
+      } else {
+        setMessage(data.error || "Something went wrong");
+      }
+    } catch (error) {
+      setMessage("Error adding product");
     }
+
+    setLoading(false);
   };
 
   return (
-  <div className="flex adminbody h-screen items-center justify-center ">
-    <div className=" mt-8 w-96 container border rounded-2xl h-92 p-6">
-        <Link to="/" className="text-4xl font-bold text-green-700 mb-8 flex items-center justify-center">
-            🍵 Chai-Chai
-          </Link>
-      <h1 className="text-3xl font-bold mb-4">Add Product</h1>
+    <div className="max-w-lg mx-auto mt-10 m-72  p-6 bg-gray-900 shadow-md rounded-lg">
+      <h2 className="text-2xl font-bold mb-4"></h2>
+
+      {message && <p className="text-red-500">{message}</p>}
+
       <form onSubmit={handleSubmit} className="space-y-4">
-        <input type="text" name="name" placeholder="Product Name" value={product.name} onChange={handleChange} required className="w-full  p-2 border rounded" />
-        <textarea name="description" placeholder="Description" value={product.description} onChange={handleChange} className="w-full p-2 border rounded"></textarea>
-        <input type="number" name="price" placeholder="Price" value={product.price} onChange={handleChange} required className="w-full p-2 border rounded" />
-        <input type="number" name="stock" placeholder="Stock" value={product.stock} onChange={handleChange} required className="w-full p-2 border rounded" />
-        <input type="text" name="imageUrl" placeholder="Image URL (optional)" value={product.imageUrl} onChange={handleChange} className="w-full p-2 border rounded" />
-        <button type="submit" className="bg-green-500 text-white px-4 py-2 rounded">
-          Add Product
+        <input
+          type="text"
+          name="name"
+          placeholder="Product Name"
+          value={formData.name}
+          onChange={handleChange}
+          className="w-full p-2 border rounded"
+          required
+        />
+        <textarea
+          name="description"
+          placeholder="Product Description"
+          value={formData.description}
+          onChange={handleChange}
+          className="w-full p-2 border rounded"
+        />
+        <input
+          type="number"
+          name="price"
+          placeholder="Price"
+          value={formData.price}
+          onChange={handleChange}
+          className="w-full p-2 border rounded"
+          required
+        />
+        <input
+          type="number"
+          name="stock"
+          placeholder="Stock"
+          value={formData.stock}
+          onChange={handleChange}
+          className="w-full p-2 border rounded"
+          required
+        />
+        <input
+          type="text"
+          name="imageUrl"
+          placeholder="Image URL"
+          value={formData.imageUrl}
+          onChange={handleChange}
+          className="w-full p-2 border rounded"
+        />
+        <button
+          type="submit"
+          className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition w-full"
+          disabled={loading}
+        >
+          {loading ? "Adding..." : "Add Product"}
         </button>
       </form>
     </div>
-  </div>
   );
 };
-
-export default AddProduct;

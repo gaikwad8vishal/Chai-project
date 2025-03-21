@@ -29,11 +29,11 @@ export function SignIn() {
 
       // Redirect based on role
       if (data.role === "ADMIN") {
-        console.log("Navigating to admin Dashboard");
         navigate("/admin/dashboard");
+      } else if(data.role === "DELIVERY_PERSON") {
+        navigate("/user/delivery");
       } else {
-        console.log("Navigating to User Dashboard");
-        navigate("/user/dashboard");
+        navigate("/user/dashboard")
       } // Redirect to dashboard or home
       alert("Login successful!");
 

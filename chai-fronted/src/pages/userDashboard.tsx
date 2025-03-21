@@ -1,11 +1,8 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
-import {  Navbar2 } from "../components/Navbar";
 
-
-
-interface Order {
+export interface Order {
   id: string;
   totalPrice: number;
   status: string;
@@ -18,16 +15,16 @@ interface Order {
   }[];
 }
 
-
 const UserDashboard = () => {
   const navigate = useNavigate();
+  const location = useLocation(); // ✅ Fix background update
   const [user, setUser] = useState<{ username: string } | null>(null);
   const [orders, setOrders] = useState<Order[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true); // ✅ Default to `true`
   const [greeting, setGreeting] = useState<string>("");
 
   useEffect(() => {
-
+    // ✅ Set Dynamic Greeting
     const getGreeting = () => {
       const hour = new Date().getHours();
       if (hour >= 5 && hour < 12) return "Good Morning";
@@ -35,10 +32,9 @@ const UserDashboard = () => {
       if (hour >= 17 && hour < 21) return "Good Evening";
       return "Good Night";
     };
-
     setGreeting(getGreeting());
 
-
+    // ✅ Fetch Data (User & Orders)
     const fetchData = async () => {
       const token = localStorage.getItem("token");
       if (!token) {
@@ -47,22 +43,19 @@ const UserDashboard = () => {
       }
 
       try {
-        // ✅ Fetch User Info
         setLoading(true);
-        const userRes = await axios.get("http://localhost:3000/user/profile", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setUser(userRes.data);
+        const [userRes, ordersRes] = await Promise.all([
+          axios.get("http://localhost:3000/user/profile", {
+            headers: { Authorization: `Bearer ${token}` },
+          }),
+          axios.get("http://localhost:3000/user/user-order", {
+            headers: { Authorization: `Bearer ${token}` },
+          }),
+        ]);
 
-        // ✅ Fetch Orders
-        const ordersRes = await axios.get("http://localhost:3000/user/user-order", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        console.log("Orders Response:", ordersRes.data); // 🔍 Check API Response
+        setUser(userRes.data);
         setOrders(ordersRes.data);
-        
-      } catch (error:any) {
-        // Check if error has a response before accessing `status`
+      } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
         setLoading(false);
@@ -72,29 +65,43 @@ const UserDashboard = () => {
     fetchData();
   }, [navigate]);
 
+  // ✅ Update Background on Route Change
+  useEffect(() => {
+    if (location.pathname.startsWith("/user/dashboard")) {
+    }
 
+    return () => {
+      document.body.style.backgroundColor = ""; // Cleanup on unmount
+    };
+  }, [location.pathname]);
 
   return (
-    <div className="userdashbody h-screen">
-    <div className="    mx-auto p-6">
-      <Navbar2/>
+    <div className="userdashbody" >
+    <div className=" bg-gradient-to-b from-blue-500 to-yellow-400 h-full p-6">
       <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold">{greeting}, {user?.username}!</h1>
-       
+        <h1 className="text-3xl text-white font-bold">
+          {greeting}, {user?.username}!
+        </h1>
       </div>
 
       {/* Orders Section */}
-      <h2 className="text-2xl font-semibold mt-6">Your Orders</h2>
-      <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-      {orders.length > 0 ? (
-          orders.map((order) => (
-            <div key={order.id} className=" bg-white/10 backdrop-blur-md  rounded-lg p-4 p-4">
+      <h2 className="text-2xl text-white font-semibold mt-6">Your Orders...</h2>
+
+      {loading ? (
+        <div className="flex justify-center items-center mt-10">
+          {/* ✅ Loading Spinner */}
+          <div className="w-10 h-10 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
+        </div>
+      ) : orders.length > 0 ? (
+        <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {orders.map((order) => (
+            <div key={order.id} className="bg-white/10 backdrop-blur-md rounded-lg p-4">
               <p className="text-lg font-bold">Order ID: {order.id}</p>
               <p>Total: ₹{order.totalPrice.toFixed(2)}</p>
               <p>Status: <span className="font-semibold">{order.status}</span></p>
               <p className="text-sm text-gray-500">Placed on: {new Date(order.createdAt).toLocaleDateString()}</p>
 
-              {/* ✅ Show Ordered Products */}
+              {/* Ordered Products */}
               <div className="mt-3">
                 <p className="font-semibold">Products:</p>
                 <ul className="list-disc pl-5">
@@ -106,13 +113,15 @@ const UserDashboard = () => {
                 </ul>
               </div>
             </div>
-          ))
-        ) : (<p>No orders found.</p> 
-
-        )}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <p className="text-center text-white mt-6">You haven’t placed any orders yet. Start shopping now! 🍵</p>
+      )}
     </div>
-</div>)
+    </div>
+  );
 };
 
 export default UserDashboard;
+

@@ -1,41 +1,52 @@
-import { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
-// 🔥 Define AuthContext Type
+// Define user type
+interface User {
+  username: string;
+  role: "USER" | "ADMIN" | "DELIVERY_PERSON";
+}
+
 interface AuthContextType {
-  user: string | null;
-  signIn: (username: string) => void;
+  user: User | null;
+  signIn: (user: User) => void;
   signOut: () => void;
 }
 
-// ✅ Pehle Context Banayein (Yeh Missing Tha)
-const AuthContext = createContext<AuthContextType | null>(null);
+// Create context
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// ✅ Ab AuthProvider Ko Sahi Karein
-export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<string | null>(localStorage.getItem("user") || null);
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
+  const [user, setUser] = useState<User | null>(null);
 
-  const signIn = (username: string) => {
-    setUser(username);
-    localStorage.setItem("user", username);
+  // Load user from localStorage on first load
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+
+  const signIn = (user: User) => {
+    setUser(user);
+    localStorage.setItem("user", JSON.stringify(user));
   };
 
   const signOut = () => {
     setUser(null);
     localStorage.removeItem("user");
+    localStorage.removeItem("token");
   };
 
   return (
     <AuthContext.Provider value={{ user, signIn, signOut }}>
-      {children} {/* ✅ Yeh Ab Properly Work Karega */}
+      {children}
     </AuthContext.Provider>
   );
 };
 
-// ✅ Custom Hook to use AuthContext
+// Hook for easy use
 export const useAuth = () => {
   const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error("useAuth must be used within an AuthProvider");
-  }
+  if (!context) throw new Error("useAuth must be used within an AuthProvider");
   return context;
 };

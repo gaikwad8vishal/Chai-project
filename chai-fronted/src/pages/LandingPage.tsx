@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
-import Navbar from "../components/Navbar";
 
 
 export default function LandingPage() {
 
 
   return (
-    <div className="body1">
+    <div className="">
       {/* Blurred Blobs */}
       <div className="blob blob1"></div>
       <div className="blob blob2"></div>
@@ -64,6 +63,7 @@ export const AllProductsLocal = () => {
   return (
     <div className="p-6">
       <h1 className="text-3xl font-bold mb-4">All Products</h1>
+      {/* shoul change accourding to  whenever user click on home then belows deta should  render  here and after click on blog the all blogs should render here*/}
       {products.length === 0 ? ( // ✅ Agar empty hai toh message dikhao
         <p>Loading products...</p>
       ) : (

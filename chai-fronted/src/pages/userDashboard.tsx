@@ -17,7 +17,6 @@ export interface Order {
 
 const UserDashboard = () => {
   const navigate = useNavigate();
-  const location = useLocation(); // ✅ Fix background update
   const [user, setUser] = useState<{ username: string } | null>(null);
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true); // ✅ Default to `true`
@@ -65,19 +64,9 @@ const UserDashboard = () => {
     fetchData();
   }, [navigate]);
 
-  // ✅ Update Background on Route Change
-  useEffect(() => {
-    if (location.pathname.startsWith("/user/dashboard")) {
-    }
-
-    return () => {
-      document.body.style.backgroundColor = ""; // Cleanup on unmount
-    };
-  }, [location.pathname]);
-
   return (
-    <div className="userdashbody" >
-    <div className=" bg-gradient-to-b from-blue-500 to-yellow-400 h-full p-6">
+    <div className="" >
+    <div className="   h-full p-6">
       <div className="flex justify-between items-center">
         <h1 className="text-3xl text-white font-bold">
           {greeting}, {user?.username}!
@@ -105,13 +94,14 @@ const UserDashboard = () => {
               <div className="mt-3">
                 <p className="font-semibold">Products:</p>
                 <ul className="list-disc pl-5">
-                  {order.items.map((item) => (
-                    <li key={item.id} className="text-sm">
-                      {item.name} (x{item.quantity}) - ₹{(item.price * item.quantity).toFixed(2)}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                      {order.items.map((item) => (
+                        <li key={item.id} className="text-sm">
+                          {item.name} (x{item.quantity}) - ₹{(item.price * item.quantity).toFixed(2)}
+                        </li>
+                      ))}
+                    </ul>
+
+              </div>  
             </div>
           ))}
         </div>

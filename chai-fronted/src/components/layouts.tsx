@@ -2,7 +2,6 @@ import Dashboard from "../pages/admin/Dashboard";
 import AdminOrders from "../pages/admin/Orders";
 import { AddProduct } from "../pages/admin/products/add";
 import { AdminAllProducts } from "../pages/admin/products/allpro";
-import LandingPage, { LandingHome } from "../pages/LandingPage";
 import { AllProductsU } from "../pages/Products";
 import { SignIn } from "../pages/SignIn";
 import { SignUp } from "../pages/SignUp";
@@ -13,6 +12,8 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./Navbar";
 import { LocalBlog } from "./LocalBlog";
 import { LocalShowcase } from "./LocalShowcase";
+import LandingPage from "@/pages/LandingPage";
+import { LandingPageHome } from "./LangingHome";
 
 
 
@@ -32,6 +33,8 @@ function Layout() {
       "/all-product": "linear-gradient(to bottom,rgb(177, 112, 66),rgb(136, 81, 56))", // Sky blue
       "/signin": "linear-gradient(to bottom, #ff7e5f, #feb47b)", // Coral
       "/signup": "linear-gradient(to bottom, #56ab2f, #a8e063)", // Green meadow
+      "/blog": "linear-gradient(to bottom, #56ab2f, #a8e063)",
+      "/showcase": "linear-gradient(to bottom, #56ab2f, #a8e063)",
     };
 
     document.body.style.background = backgroundGradients[location.pathname] || "linear-gradient(to right, #ffffff, #dddddd)";
@@ -41,7 +44,7 @@ function Layout() {
     };
   }, [location.pathname]);
 
-  const userRoutes = ["/user/dashboard", "/all-product", "/"];
+  const userRoutes = ["/user/dashboard", "/all-product", "/blog", "/showcase", "/"];
 
   return (
     <div className="min-h-screen w-full">
@@ -49,7 +52,7 @@ function Layout() {
       {userRoutes.includes(location.pathname) && <Navbar />}
 
       <Routes>
-        <Route path="/" element={<LandingHome/>} />
+        <Route path="/" element={<LandingPageHome/>} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/blog" element={<LocalBlog/>} />

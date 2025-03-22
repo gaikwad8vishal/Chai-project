@@ -1,6 +1,4 @@
-import { useState, useEffect } from "react";
-import { Routes, Route, Link, Outlet } from "react-router-dom";
-import axios from "axios";
+import {  Outlet } from "react-router-dom";
 
 export default function LandingPage() {
   return (
@@ -15,10 +13,3 @@ export default function LandingPage() {
 }
 
 
-export function LandingHome(){
-
-
-  return <div>
-    here is advatisement
-  </div>
-}

@@ -1,19 +1,16 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../authentication";
 import { useEffect, useState } from "react";
 
 const Navbar = () => {
-  const { user, signOut } = useAuth(); // ✅ AuthContext se user & signOut lo
+  const { user, signOut } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+      setScrolled(window.scrollY > 50);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -22,46 +19,52 @@ const Navbar = () => {
     };
   }, []);
 
+  // ✅ Function to check active page (Default Home is active)
+  const isActive = (path: string) => {
+    return location.pathname === path 
+      ? "bg-white text-black font-bold px-3 py-2 rounded-md" 
+      : "text-white px-3 py-2 ";
+  };
+
   return (
-    <nav
-      className={`navbar sticky  transition-all duration-300  z-50 ] ${scrolled ? "scrolled" : ""}`}
-    >
+    <nav className={`navbar sticky transition-all duration-300 z-50 ${scrolled ? "scrolled" : ""}`}>
       <div className="container mx-auto flex justify-between items-center p-4">
         {/* 🔹 Logo */}
         <div className="logo">
-          <Link to="">☕️ Chai-Chai</Link>
+          <Link to="/" className="text-xl font-bold">☕️ Chai-Chai</Link>
         </div>
 
         {/* 🔹 Navigation Links (Role-Based) */}
-        <ul className="nav-links gap-4">
-        {!user && (
+        <ul className="nav-links flex gap-4">
+          {!user && (
             <>
-              <li><Link to="/">Home</Link></li>
-              <li><Link to="/all-product">Products</Link></li>
-              <li><Link to="/blog">Blog</Link></li>
-              <li><Link to="/showcase">Showcase</Link></li>
+              <li><Link to="/" className={isActive("/")}>Home</Link></li>
+              <li><Link to="/all-product" className={isActive("/all-product")}>Products</Link></li>
+              <li><Link to="/blog" className={isActive("/blog")}>Blog</Link></li>
+              <li><Link to="/showcase" className={isActive("/showcase")}>Showcase</Link></li>
             </>
           )}
+
           {user?.role === "ADMIN" && (
             <>
-              <li><Link to="/admin/dashboard">Dashboard</Link></li>
-              <li><Link to="/admin/orders">Manage Orders</Link></li>
-              <li><Link to="/admin/products">Manage Products</Link></li>
+              <li><Link to="/admin/dashboard" className={isActive("/admin/dashboard")}>Dashboard</Link></li>
+              <li><Link to="/admin/orders" className={isActive("/admin/orders")}>Manage Orders</Link></li>
+              <li><Link to="/admin/products" className={isActive("/admin/products")}>Manage Products</Link></li>
             </>
           )}
 
           {user?.role === "USER" && (
             <>
-              <li><Link to="/">Home</Link></li>
-              <li><Link to="/all-product">Products</Link></li>
-              <li><Link to="/blog">Blog</Link></li>
-              <li><Link to="/showcase">Showcase</Link></li>
+              <li><Link to="/" className={isActive("/")}>Home</Link></li>
+              <li><Link to="/all-product" className={isActive("/all-product")}>Products</Link></li>
+              <li><Link to="/blog" className={isActive("/blog")}>Blog</Link></li>
+              <li><Link to="/showcase" className={isActive("/showcase")}>Showcase</Link></li>
             </>
           )}
 
           {user?.role === "DELIVERY_PERSON" && (
             <>
-              <li><Link to="/delivery/orders">Assigned Orders</Link></li>
+              <li><Link to="/delivery/orders" className={isActive("/delivery/orders")}>Assigned Orders</Link></li>
             </>
           )}
         </ul>
@@ -75,10 +78,10 @@ const Navbar = () => {
           ) : (
             <div className="auth-buttons">
               <button className="button1">
-                <a href="/signin">Signin</a>
+                <Link to="/signin">Signin</Link>
               </button>
               <button className="button1">
-                <a href="/signup">Sign Up</a>
+                <Link to="/signup">Sign Up</Link>
               </button>
             </div>
           )}

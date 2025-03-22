@@ -37,7 +37,7 @@ const Navbar = () => {
         {!user && (
             <>
               <li><Link to="/">Home</Link></li>
-              <li><Link to="/products">Products</Link></li>
+              <li><Link to="/all-product">Products</Link></li>
               <li><Link to="/blog">Blog</Link></li>
               <li><Link to="/showcase">Showcase</Link></li>
             </>
@@ -53,7 +53,7 @@ const Navbar = () => {
           {user?.role === "USER" && (
             <>
               <li><Link to="/">Home</Link></li>
-              <li><Link to="/products">Products</Link></li>
+              <li><Link to="/all-product">Products</Link></li>
               <li><Link to="/blog">Blog</Link></li>
               <li><Link to="/showcase">Showcase</Link></li>
             </>

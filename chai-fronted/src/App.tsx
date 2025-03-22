@@ -1,6 +1,6 @@
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./authentication";
-import { Layout } from "lucide-react";
+import Layout from "./components/layouts";
 
 
 function App() {

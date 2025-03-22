@@ -2,7 +2,7 @@ import Dashboard from "../pages/admin/Dashboard";
 import AdminOrders from "../pages/admin/Orders";
 import { AddProduct } from "../pages/admin/products/add";
 import { AdminAllProducts } from "../pages/admin/products/allpro";
-import LandingPage from "../pages/LandingPage";
+import LandingPage, { LandingHome } from "../pages/LandingPage";
 import { AllProductsU } from "../pages/Products";
 import { SignIn } from "../pages/SignIn";
 import { SignUp } from "../pages/SignUp";
@@ -11,6 +11,8 @@ import { Users } from "lucide-react";
 import { useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./Navbar";
+import { LocalBlog } from "./LocalBlog";
+import { LocalShowcase } from "./LocalShowcase";
 
 
 
@@ -47,9 +49,12 @@ function Layout() {
       {userRoutes.includes(location.pathname) && <Navbar />}
 
       <Routes>
-        <Route path="/" element={<LandingPage />} />
+        <Route path="/" element={<LandingHome/>} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/blog" element={<LocalBlog/>} />
+        <Route path="/showcase" element={<LocalShowcase/>}/>
+
       
         <Route path="/user/dashboard" element={<UserDashboard/>} />
         <Route path="/all-product" element={<AllProductsU />} />

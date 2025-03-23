@@ -12,8 +12,8 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./Navbar";
 import { LocalBlog } from "./LocalBlog";
 import { LocalShowcase } from "./LocalShowcase";
-import LandingPage from "@/pages/LandingPage";
 import { LandingPageHome } from "./LangingHome";
+import { SubscriptionUser } from "./Subcription";
 
 
 
@@ -30,11 +30,12 @@ function Layout() {
       "/admin/products/add": "linear-gradient(to bottom, #ff758c, #ff7eb3)", // Pinkish
       "/admin/users": "linear-gradient(to bottom, #ff9966, #ff5e62)", // Orange red
       "/user/dashboard": "linear-gradient(to bottom,rgb(110, 99, 72), #f8b500)", // Yellow sunrise
-      "/all-product": "linear-gradient(to bottom,rgb(177, 112, 66),rgb(136, 81, 56))", // Sky blue
+      "/all-product": "linear-gradient(to bottom,rgb(61, 93, 99),rgb(58, 183, 199)", // Sky blue
       "/signin": "linear-gradient(to bottom, #ff7e5f, #feb47b)", // Coral
       "/signup": "linear-gradient(to bottom, #56ab2f, #a8e063)", // Green meadow
-      "/blog": "linear-gradient(to bottom, #56ab2f, #a8e063)",
-      "/showcase": "linear-gradient(to bottom, #56ab2f, #a8e063)",
+      "/blog": "linear-gradient(to bottom,rgb(61, 93, 99),rgb(58, 183, 199))",
+      "/showcase": "linear-gradient(to bottom,rgb(61, 93, 99),rgb(58, 183, 199)",
+      "/subscription" : "linear-gradient(to bottom,rgb(61, 93, 99),rgb(58, 183, 199))"
     };
 
     document.body.style.background = backgroundGradients[location.pathname] || "linear-gradient(to right, #ffffff, #dddddd)";
@@ -44,7 +45,7 @@ function Layout() {
     };
   }, [location.pathname]);
 
-  const userRoutes = ["/user/dashboard", "/all-product", "/blog", "/showcase", "/"];
+  const userRoutes = ["/user/dashboard", "/all-product", "/blog", "/showcase", "/" , "/subscription"];
 
   return (
     <div className="min-h-screen w-full">
@@ -57,6 +58,7 @@ function Layout() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/blog" element={<LocalBlog/>} />
         <Route path="/showcase" element={<LocalShowcase/>}/>
+        <Route path="/subscription" element={<SubscriptionUser/>} />
 
       
         <Route path="/user/dashboard" element={<UserDashboard/>} />

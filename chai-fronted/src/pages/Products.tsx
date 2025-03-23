@@ -99,9 +99,9 @@ export const AllProductsU = () => {
       {loading ? (
         <p>Loading products...</p>
       ) : (
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-3 gap-4  ">
           {products.map((product) => (
-            <div key={product.id} className="border p-4 rounded-lg shadow-md">
+            <div key={product.id} className=" p-4 rounded-lg bg-white/10 shadow-md">
               <img
                 src={product.imageUrl}
                 alt={product.name}
@@ -116,7 +116,7 @@ export const AllProductsU = () => {
                 {/* Add to Cart Button */}
                 <button
                   onClick={() => addToCart(product)}
-                  className="flex items-center bg-gray-300 text-gray-700 px-3 py-2 rounded hover:bg-gray-400"
+                  className=" flex items-center button1"
                 >
                   <FaShoppingCart className="mr-2" /> Add to Cart
                 </button>
@@ -124,7 +124,7 @@ export const AllProductsU = () => {
                 {/* Place Order Button */}
                 <button
                   onClick={() => placeOrder(product)}
-                  className="flex items-center bg-blue-500 text-white px-3 py-2 rounded hover:bg-blue-600"
+                  className=" items-center flex button1"
                 >
                   <FaCheck className="mr-2" /> Place Order
                 </button>

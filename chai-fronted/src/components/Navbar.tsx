@@ -1,6 +1,8 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../authentication";
 import { useEffect, useState } from "react";
+import { ActivityIcon } from "lucide-react";
+import { AcconuntInfo } from "./AccountInfo";
 
 const Navbar = () => {
   const { user, signOut } = useAuth();
@@ -27,7 +29,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className={`navbar sticky transition-all duration-300 z-50 ${scrolled ? "scrolled" : ""}`}>
+    <nav className={`navbar hover:scale-[1.02]  ${scrolled ? "scrolled" : ""}`}>
       <div className="container mx-auto flex justify-between items-center p-4">
         {/* 🔹 Logo */}
         <div className="logo">
@@ -72,9 +74,14 @@ const Navbar = () => {
         {/* 🔹 Auth Buttons */}
         <div className="auth-buttons">
           {user ? (
+            <div className="flex gap-10">
+              <div>
+                <AcconuntInfo/>
+              </div>
             <button onClick={() => { signOut(); navigate("/signin"); }} className="button1">
               Sign Out
             </button>
+            </div>
           ) : (
             <div className="auth-buttons">
               <button className="button1">

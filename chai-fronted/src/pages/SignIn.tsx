@@ -1,17 +1,20 @@
 import { useAuth } from "../authentication";
 import axios from "axios";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, X } from "lucide-react";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
+interface SignInProps {
+  closeModal: () => void; //Close function as a prop
+}
 
-export function SignIn() {
+export function SignIn({ closeModal }: SignInProps) {
   const [formData, setFormData] = useState({ username: "", password: "" });
   const [error, setError] = useState("");
   const { signIn } = useAuth(); // Get signIn function from context
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -39,6 +42,8 @@ export function SignIn() {
       } else {
         navigate("/user/dashboard");
       }
+      
+      closeModal(); // ✅ Close modal after successful login
     } catch (error: any) {
       if (error.response && error.response.status === 401) {
         localStorage.removeItem("token");
@@ -52,15 +57,30 @@ export function SignIn() {
   };
 
   return (
-    <div className="flex signbody items-center justify-center h-screen">
-      <div className="w-full bg-white/50 backdrop-blur-lg max-w-md p-6 rounded-xl">
+    <div 
+      className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-md"
+      onClick={closeModal()} // ✅ Clicking on the backdrop closes the modal
+    >
+      <div 
+        className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md relative"
+        onClick={(e) => e.stopPropagation()} // ✅ Prevent modal from closing when clicking inside
+      >
+        {/* ❌ Close Button */}
+        <button 
+          onClick={() => {
+            console.log("Close button clicked!"); 
+            closeModal();
+          }} 
+          className="absolute top-3 right-3 text-gray-600 hover:text-red-500"
+        >
+          <X size={24} />
+        </button>
+
         <div className="text-center">
-          <Link to="/" className="text-4xl font-bold text-green-700 mb-8 flex items-center justify-center">
-            🍵 Chai-Chai
-          </Link>
           <h1 className="text-3xl font-bold text-green-700">Sign In</h1>
         </div>
         {error && <p className="text-red-500 text-center">{error}</p>}
+
         <form className="mt-6 space-y-6" onSubmit={handleSubmit}>
           <div>
             <label htmlFor="username" className="block text-sm font-medium text-gray-700">
@@ -90,7 +110,10 @@ export function SignIn() {
                 required
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
               />
-              <div onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer">
+              <div 
+                onClick={() => setShowPassword(!showPassword)} 
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
+              >
                 {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
               </div>
             </div>
@@ -101,9 +124,6 @@ export function SignIn() {
             </button>
           </div>
         </form>
-        <p className="text-center text-sm mt-4">
-          Don't have an account? <Link to="/signup" className="text-green-700 font-bold">Sign Up</Link>
-        </p>
       </div>
     </div>
   );

@@ -31,8 +31,7 @@ function Layout() {
       "/admin/users": "linear-gradient(to bottom, #ff9966, #ff5e62)", // Orange red
       "/user/dashboard": "linear-gradient(to bottom,rgb(110, 99, 72), #f8b500)", // Yellow sunrise
       "/all-product": "linear-gradient(to bottom,rgb(61, 93, 99),rgb(58, 183, 199)", // Sky blue
-      "/signin": "linear-gradient(to bottom, #ff7e5f, #feb47b)", // Coral
-      "/signup": "linear-gradient(to bottom, #56ab2f, #a8e063)", // Green meadow
+      
       "/blog": "linear-gradient(to bottom,rgb(61, 93, 99),rgb(58, 183, 199))",
       "/showcase": "linear-gradient(to bottom,rgb(61, 93, 99),rgb(58, 183, 199)",
       "/subscription" : "linear-gradient(to bottom,rgb(61, 93, 99),rgb(58, 183, 199))"

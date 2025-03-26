@@ -57,7 +57,6 @@ const Navbar = () => {
           {user?.role === "USER" && (
             <>
               <li><Link to="/" className={isActive("/")}>Home</Link></li>
-              
               <li><Link to="/all-product" className={isActive("/all-product")}>Products</Link></li>
               <li><Link to="/blog" className={isActive("/blog")}>Blog</Link></li>
               <li><Link to="/showcase" className={isActive("/showcase")}>Showcase</Link></li>

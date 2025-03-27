@@ -20,10 +20,17 @@ export function SignIn({ closeModal }: SignInProps) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+
+  const handleClose = () => {
+    closeModal();  // ✅ Modal close karega
+    navigate("/"); // ✅ Home page par redirect karega
+  };
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     setLoading(true);
+
+  
 
     try {
       const { data } = await axios.post("http://localhost:3000/user/signin", formData);
@@ -43,7 +50,9 @@ export function SignIn({ closeModal }: SignInProps) {
         navigate("/user/dashboard");
       }
       
-      closeModal(); // ✅ Close modal after successful login
+     
+      
+      // ✅ Close modal after successful login
     } catch (error: any) {
       if (error.response && error.response.status === 401) {
         localStorage.removeItem("token");
@@ -59,18 +68,15 @@ export function SignIn({ closeModal }: SignInProps) {
   return (
     <div 
       className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-md"
-      onClick={closeModal()} // ✅ Clicking on the backdrop closes the modal
+      onClick={() => closeModal()}  // Clicking on the backdrop closes the modal
     >
       <div 
         className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md relative"
         onClick={(e) => e.stopPropagation()} // ✅ Prevent modal from closing when clicking inside
       >
-        {/* ❌ Close Button */}
+        {/*  Close Button */}
         <button 
-          onClick={() => {
-            console.log("Close button clicked!"); 
-            closeModal();
-          }} 
+          onClick={handleClose} 
           className="absolute top-3 right-3 text-gray-600 hover:text-red-500"
         >
           <X size={24} />
@@ -128,3 +134,17 @@ export function SignIn({ closeModal }: SignInProps) {
     </div>
   );
 }
+
+
+
+export function SignInWrapper() {
+  const [isOpen, setIsOpen] = useState(true); // ✅ Track modal state
+
+  const closeModal = () => {
+    setIsOpen(false);
+    window.location.href = "/"; // ✅ Redirect to Home
+  };
+
+  return isOpen ? <SignIn closeModal={closeModal} /> : null;
+}
+

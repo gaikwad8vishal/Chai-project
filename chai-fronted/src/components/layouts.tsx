@@ -14,65 +14,69 @@ import { LocalBlog } from "./LocalBlog";
 import { LocalShowcase } from "./LocalShowcase";
 import { LandingPageHome } from "./LangingHome";
 import { SubscriptionUser } from "./Subcription";
+import Footer from "./Footer";
+
 
 
 
 function Layout() {
   const location = useLocation();
 
-  // ✅ Background gradients based on routes
   useEffect(() => {
     const backgroundGradients: Record<string, string> = {
-      "/": "linear-gradient(to bottom,rgb(61, 93, 99),rgb(58, 183, 199))", // Peach to pink
-      "/admin/dashboard": "linear-gradient(to bottom, #232526, #414345)", // Dark steel
-      "/admin/all-orders": "linear-gradient(to bottom,rgb(110, 132, 154),rgb(132, 114, 84))", // Blue teal
-      "/admin/products/all": "linear-gradient(to bottom, #6a11cb, #2575fc)", // Purple blue
-      "/admin/products/add": "linear-gradient(to bottom, #ff758c, #ff7eb3)", // Pinkish
-      "/admin/users": "linear-gradient(to bottom, #ff9966, #ff5e62)", // Orange red
-      "/user/dashboard": "linear-gradient(to bottom,rgb(110, 99, 72), #f8b500)", // Yellow sunrise
-      "/all-product": "linear-gradient(to bottom,rgb(61, 93, 99),rgb(58, 183, 199)", // Sky blue
-      
+      "/": "linear-gradient(to bottom,rgb(61, 93, 99),rgb(58, 183, 199))",
+      "/admin/dashboard": "linear-gradient(to bottom, #232526, #414345)", 
+      "/admin/all-orders": "linear-gradient(to bottom,rgb(110, 132, 154),rgb(132, 114, 84))",
+      "/admin/products/all": "linear-gradient(to bottom, #6a11cb, #2575fc)", 
+      "/admin/products/add": "linear-gradient(to bottom, #ff758c, #ff7eb3)", 
+      "/admin/users": "linear-gradient(to bottom, #ff9966, #ff5e62)", 
+      "/user/dashboard": "linear-gradient(to bottom,rgb(110, 99, 72), #f8b500)", 
+      "/all-product": "linear-gradient(to bottom,rgb(61, 93, 99),rgb(58, 183, 199))", 
       "/blog": "linear-gradient(to bottom,rgb(61, 93, 99),rgb(58, 183, 199))",
-      "/showcase": "linear-gradient(to bottom,rgb(61, 93, 99),rgb(58, 183, 199)",
-      "/subscription" : "linear-gradient(to bottom,rgb(61, 93, 99),rgb(58, 183, 199))"
+      "/showcase": "linear-gradient(to bottom,rgb(61, 93, 99),rgb(58, 183, 199))",
+      "/subscription": "linear-gradient(to bottom,rgb(61, 93, 99),rgb(58, 183, 199))"
     };
-
-    document.body.style.background = backgroundGradients[location.pathname] || "linear-gradient(to right, #ffffff, #dddddd)";
+    
+    document.body.style.background =
+      backgroundGradients[location.pathname] ||
+      "linear-gradient(to right, #2c3e50, #4ca1af)"; 
 
     return () => {
-      document.body.style.background = ""; // Cleanup
+      document.body.style.background = ""; 
     };
   }, [location.pathname]);
 
-  const userRoutes = ["/user/dashboard", "/all-product", "/blog", "/showcase", "/" , "/subscription"];
+  const adminRoutes = ["/admin/dashboard", "/admin/all-orders", "/admin/products/all", "/admin/products/add", "/admin/users"];
 
   return (
-    <div className="min-h-screen w-full">
-      {/* ✅ Show Navbar only for user pages */}
-      {userRoutes.includes(location.pathname) && <Navbar />}
+    <div className="min-h-screen w-full flex flex-col justify-between">
+      {/* ✅ Show Navbar only for user routes */}
+      {!adminRoutes.includes(location.pathname) && <Navbar />}  
 
-      <Routes>
-        <Route path="/" element={<LandingPageHome/>} />
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/blog" element={<LocalBlog/>} />
-        <Route path="/showcase" element={<LocalShowcase/>}/>
-        <Route path="/subscription" element={<SubscriptionUser/>} />
+      <div className="flex-grow">
+        <Routes>
+          <Route path="/" element={<LandingPageHome />} />
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/blog" element={<LocalBlog />} />
+          <Route path="/showcase" element={<LocalShowcase />} />
+          <Route path="/subscription" element={<SubscriptionUser />} />
 
-      
-        <Route path="/user/dashboard" element={<UserDashboard/>} />
-        <Route path="/all-product" element={<AllProductsU />} />
+          <Route path="/user/dashboard" element={<UserDashboard />} />
+          <Route path="/all-product" element={<AllProductsU />} />
 
+          <Route path="/admin/dashboard" element={<Dashboard />} />
+          <Route path="/admin/all-orders" element={<AdminOrders />} />
+          <Route path="/admin/products/all" element={<AdminAllProducts />} />
+          <Route path="/admin/products/add" element={<AddProduct />} />
+          <Route path="/admin/users" element={<Users />} />
+        </Routes>
+      </div>
 
-        <Route path="/admin/dashboard" element={<Dashboard />} />
-        <Route path="/admin/all-orders" element={<AdminOrders />} />
-        <Route path="/admin/products/all" element={<AdminAllProducts />} />
-        <Route path="/admin/products/add" element={<AddProduct />} />
-        <Route path="/admin/users" element={<Users />} />
-      </Routes>
+      {/*  Footer will always be rendered */}
+      <Footer />
     </div>
   );
 }
-
 
 export default Layout;

@@ -1,39 +1,63 @@
-import { Link } from "react-router-dom";
-import { Facebook, Twitter, Instagram } from "lucide-react"; // Social icons
+import { FaFacebook, FaInstagram, FaTwitter, FaLinkedin } from "react-icons/fa";
+import { motion } from "framer-motion";
 
-export default function Footer() {
+  const Footer = () => {
   return (
-    <footer className="bg-gray-100 text-gray-700 py-6">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Top Section */}
-        <div className="flex flex-col md:flex-row justify-between items-center">
-          
-          {/* Logo */}
-          <div className="flex items-center space-x-2">
-            <span className="text-2xl font-bold text-green-700">🍵 Chai-Chai</span>
+    <footer className="bg-white/10  text-[#4B382A] py-10 mt-10">
+      <div className="container mx-auto px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+        >
+          {/* About Section */}
+          <div>
+            <h2 className="text-xl font-semibold mb-3">About Chai-Chai</h2>
+            <p className="text-sm text-gray-300">
+              Savor the best blends, sourced from premium gardens. Experience chai like never before!
+            </p>
           </div>
 
-          {/* Links */}
-          <div className="flex space-x-6 mt-4 md:mt-0">
-            <Link to="/" className="hover:text-green-600">Home</Link>
-            <Link to="/products" className="hover:text-green-600">Products</Link>
-            <Link to="/dashboard" className="hover:text-green-600">Dashboard</Link>
+          {/* Quick Links */}
+          <div>
+            <h2 className="text-xl font-semibold mb-3">Quick Links</h2>
+            <ul className="space-y-2">
+              <li><a href="/" className="hover:text-yellow-400 transition">Home</a></li>
+              <li><a href="/all-product" className="hover:text-yellow-400 transition">Products</a></li>
+              <li><a href="/blog" className="hover:text-yellow-400 transition">Blog</a></li>
+              <li><a href="/contact" className="hover:text-yellow-400 transition">Contact</a></li>
+            </ul>
           </div>
 
-          {/* Social Icons */}
-          <div className="flex space-x-4 mt-4 md:mt-0">
-            <a href="#" className="text-gray-600 hover:text-green-600"><Facebook size={20} /></a>
-            <a href="#" className="text-gray-600 hover:text-green-600"><Twitter size={20} /></a>
-            <a href="#" className="text-gray-600 hover:text-green-600"><Instagram size={20} /></a>
+          {/* Contact Info */}
+          <div>
+            <h2 className="text-xl font-semibold mb-3">Contact Us</h2>
+            <p>Email: support@chai-chai.com</p>
+            <p>Phone: +91 9373037975</p>
+            <p>Address: Pune, India</p>
           </div>
-        </div>
 
-        {/* Bottom Section */}
-        <div className="text-center mt-6 text-sm text-gray-500">
-          © {new Date().getFullYear()} Chai-Chai. All rights reserved.
-        </div>
+          {/* Social Media */}
+          <div>
+            <h2 className="text-xl font-semibold mb-3">Follow Us</h2>
+            <div className="flex gap-4 text-xl">
+              <a href="#" className="hover:text-blue-500 transition"><FaFacebook /></a>
+              <a href="#" className="hover:text-pink-500 transition"><FaInstagram /></a>
+              <a href="#" className="hover:text-blue-400 transition"><FaTwitter /></a>
+              <a href="#" className="hover:text-blue-600 transition"><FaLinkedin /></a>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Copyright */}
+        <p className="text-center text-sm text-gray-400 mt-10">
+          @ {new Date().getFullYear()} Chai-Chai. All rights reserved.
+        </p>
       </div>
     </footer>
   );
-}
+};
+
+
+export default Footer;

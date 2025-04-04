@@ -172,7 +172,7 @@
 /* Navigation Links */
 .navbar .nav-links {
   display: flex;
-  gap: 20px;
+  gap: 20px
 }
 
 .navbar .nav-links a {

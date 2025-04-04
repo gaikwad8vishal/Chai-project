@@ -58,7 +58,7 @@ const Navbar = () => {
 
         {/* 🔹 Mobile Menu Button */}
         <button 
-          className="md:hidden text-white"
+          className="md:hidden hover:bg-whi text-white"
           onClick={() => setMenuOpen(!menuOpen)}
         >
           {menuOpen ? <X size={28} /> : <Menu size={28} />}
@@ -114,6 +114,8 @@ const Navbar = () => {
 
         {/* 🔹 Mobile Navigation - (Visible Only in Mobile) */}
         {menuOpen && (
+
+          
           <ul className="absolute top-full left-0 w-full bg-black text-white flex flex-col gap-4 p-5 transition-all duration-300 md:hidden">
             {!user && (
               <>

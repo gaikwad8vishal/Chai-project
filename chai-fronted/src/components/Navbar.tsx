@@ -3,6 +3,7 @@ import { useAuth } from "../authentication";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { AcconuntInfo } from "./AccountInfo";
+import UserLocation from "./LocationDetector";
 
 const Navbar = () => {
   const { user, signOut } = useAuth();
@@ -32,8 +33,27 @@ const Navbar = () => {
     <nav className={`navbar w-full hover:scale-[1.02] ${scrolled ? "scrolled" : ""}`}>
       <div className="container  flex justify-between items-center p-4">
         {/* 🔹 Logo */}
+        <div className="flex gap-3">
         <div className="logo">
           <Link to="/" className="text-xl font-bold">☕️ Chai-Chai</Link>
+        </div>
+        <div>
+        </div>
+        {user?.role === "DELIVERY_PERSON" && (
+           <div>
+           <UserLocation/>
+         </div>
+        )}
+        {user?.role === "USER" && (
+          <div>
+            <UserLocation/>
+          </div>
+        )}
+        {!user  && (
+          <div>
+            <UserLocation/>
+          </div>
+        )}
         </div>
 
         {/* 🔹 Mobile Menu Button */}

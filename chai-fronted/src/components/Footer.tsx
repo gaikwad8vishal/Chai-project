@@ -14,7 +14,7 @@ import { motion } from "framer-motion";
           {/* About Section */}
           <div>
             <h2 className="text-xl font-semibold mb-3">About Chai-Chai</h2>
-            <p className="text-sm text-gray-300">
+            <p className="text-sm text-gray-900">
               Savor the best blends, sourced from premium gardens. Experience chai like never before!
             </p>
           </div>
@@ -42,16 +42,16 @@ import { motion } from "framer-motion";
           <div>
             <h2 className="text-xl font-semibold mb-3">Follow Us</h2>
             <div className="flex gap-4 text-xl">
-              <a href="#" className="hover:text-blue-500 transition"><FaFacebook /></a>
+              <a href="https://www.facebook.com/profile.php?id=61560587617228" className="hover:text-blue-500 transition"><FaFacebook /></a>
               <a href="#" className="hover:text-pink-500 transition"><FaInstagram /></a>
-              <a href="#" className="hover:text-blue-400 transition"><FaTwitter /></a>
-              <a href="#" className="hover:text-blue-600 transition"><FaLinkedin /></a>
+              <a href="https://x.com/Vishal___Kwad" className="hover:text-blue-400 transition"><FaTwitter /></a>
+              <a href="https://www.instagram.com/vishal___kwad/" className="hover:text-blue-600 transition"><FaLinkedin /></a>
             </div>
           </div>
         </motion.div>
 
         {/* Copyright */}
-        <p className="text-center text-sm text-gray-400 mt-10">
+        <p className="text-center text-sm text-gray-800 mt-10">
           @ {new Date().getFullYear()} Chai-Chai. All rights reserved.
         </p>
       </div>

@@ -38,7 +38,6 @@ const Navbar = () => {
           <Link to="/" className="text-xl font-bold">☕️ Chai-Chai</Link>
         </div>
         <div>
-          
         </div>
         {user?.role === "DELIVERY_PERSON" && (
            <div>

@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+// Inside your component
 
 export const AddProduct = () => {
   const [formData, setFormData] = useState({
@@ -41,9 +43,17 @@ export const AddProduct = () => {
       if (response.ok) {
         setMessage("Product added successfully!");
         setFormData({ name: "", description: "", price: "", stock: "", imageUrl: "" });
+        // ✅ Redirect to products page
+        const navigate = useNavigate();
+
+        // ✅ Redirect after short delay (optional)
+        setTimeout(() => {
+          navigate("/admin/products/all");
+        }, 500); // 1 sec delay just to show the success msg
       } else {
         setMessage(data.error || "Something went wrong");
       }
+  
     } catch (error) {
       setMessage("Error adding product");
     }

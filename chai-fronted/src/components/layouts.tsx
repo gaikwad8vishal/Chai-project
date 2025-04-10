@@ -15,6 +15,7 @@ import { LocalShowcase } from "./LocalShowcase";
 import { LandingPageHome } from "./LangingHome";
 import { SubscriptionUser } from "./Subcription";
 import Footer from "./Footer";
+import PremiumPage from "./Primium";
 
 
 
@@ -60,7 +61,7 @@ function Layout() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/blog" element={<LocalBlog />} />
           <Route path="/showcase" element={<LocalShowcase />} />
-          <Route path="/subscription" element={<SubscriptionUser />} />
+          <Route path="/subscription" element={<PremiumPage />} />
 
           <Route path="/user/dashboard" element={<UserDashboard />} />
           <Route path="/all-product" element={<AllProductsU />} />

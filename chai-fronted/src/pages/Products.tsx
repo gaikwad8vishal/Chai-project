@@ -27,7 +27,6 @@ export const AllProductsU = () => {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
 
-      console.log("Fetched Products:", response.data);
 
       if (response.data && Array.isArray(response.data.products)) {
         setProducts(response.data.products);
@@ -87,7 +86,6 @@ export const AllProductsU = () => {
       );
 
       alert("Order placed successfully!");
-      console.log("Order Response:", response.data);
     } catch (error) {
       console.error("Error placing order:", error);
       alert("Failed to place order.");

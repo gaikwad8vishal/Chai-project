@@ -8,7 +8,7 @@ interface SignInProps {
   closeModal: () => void; //Close function as a prop
 }
 
-export function SignIn({ closeModal }: SignInProps) {
+export function SignIn() {
   const [formData, setFormData] = useState({ username: "", password: "" });
   const [error, setError] = useState("");
   const { signIn } = useAuth(); // Get signIn function from context
@@ -22,15 +22,14 @@ export function SignIn({ closeModal }: SignInProps) {
 
 
   const handleClose = () => {
-    closeModal();  // ✅ Modal close karega
     navigate("/"); // ✅ Home page par redirect karega
   };
+
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     setLoading(true);
-
-  
 
     try {
       const { data } = await axios.post("http://localhost:3000/user/signin", formData);
@@ -67,9 +66,7 @@ export function SignIn({ closeModal }: SignInProps) {
 
   return (
     <div 
-      className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-md"
-      onClick={() => closeModal()}  // Clicking on the backdrop closes the modal
-    >
+      className="z-20 fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-md" >
       <div 
         className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md relative"
         onClick={(e) => e.stopPropagation()} // ✅ Prevent modal from closing when clicking inside
@@ -135,16 +132,4 @@ export function SignIn({ closeModal }: SignInProps) {
   );
 }
 
-
-
-export function SignInWrapper() {
-  const [isOpen, setIsOpen] = useState(true); // ✅ Track modal state
-
-  const closeModal = () => {
-    setIsOpen(false);
-    window.location.href = "/"; // ✅ Redirect to Home
-  };
-
-  return isOpen ? <SignIn closeModal={closeModal} /> : null;
-}
 

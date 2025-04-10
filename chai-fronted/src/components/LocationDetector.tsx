@@ -13,7 +13,6 @@ const UserLocation = () => {
     navigator.geolocation.getCurrentPosition(
       async (position) => {
         const { latitude, longitude } = position.coords;
-        console.log("Latitude:", latitude, "Longitude:", longitude); // ✅ Debug
 
         try {
           const response = await axios.post("http://localhost:3000/save-location", {
@@ -21,7 +20,6 @@ const UserLocation = () => {
             longitude,
           });
 
-          console.log("Server Response:", response.data);
           setLocation(response.data.city);
         } catch (error: any) {
           console.error("Axios Error:", error.response?.data || error.message);

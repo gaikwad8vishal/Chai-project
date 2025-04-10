@@ -32,7 +32,6 @@ export const AdminAllProducts = () => {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         });
 
-        console.log("Fetched Products:", response.data); // Debugging
 
         if (response.data && Array.isArray(response.data.products)) {
           setProducts(response.data.products);

@@ -33,9 +33,8 @@ export function SignUp({ closeModal }: SignUpProps) {
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-md">
+    <div className=" z-50 fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-md">
       <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md relative">
-        {/* ❌ Close Button */}
         <button onClick={closeModal} className="absolute top-3 right-3 text-gray-600 hover:text-red-500">
           ✖
         </button>

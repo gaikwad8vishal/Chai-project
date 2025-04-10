@@ -14,11 +14,14 @@ export const AddProduct = () => {
 
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -43,8 +46,6 @@ export const AddProduct = () => {
       if (response.ok) {
         setMessage("Product added successfully!");
         setFormData({ name: "", description: "", price: "", stock: "", imageUrl: "" });
-        // ✅ Redirect to products page
-        const navigate = useNavigate();
 
         // ✅ Redirect after short delay (optional)
         setTimeout(() => {

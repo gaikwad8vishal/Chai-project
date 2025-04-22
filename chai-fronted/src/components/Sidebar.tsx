@@ -27,7 +27,7 @@ const Sidebar: React.FC = () => {
           >
             Manage Users
           </NavLink>
-          <div className="absolute z-90 left-[210px] top-0 ml-2 w-48 bg-white text-black rounded-lg shadow-lg opacity-0 group-hover:opacity-100 group-hover:translate-x-0 transform -translate-x-2 transition-all duration-300 ease-in-out z-20 overflow-y-auto max-h-64">
+          <div className="absolute z-90 left-full top-0 ml-0 w-48 bg-white text-black rounded-lg shadow-lg opacity-0 group-hover:opacity-100 group-hover:translate-x-0 transform -translate-x-2 transition-all duration-300 ease-in-out z-20 overflow-y-auto max-h-64">
             <NavLink
               to="/admin/users"
               className="block px-4 py-2 hover:bg-amber-100 rounded-t-lg"
@@ -66,7 +66,7 @@ const Sidebar: React.FC = () => {
           >
             Manage Products
           </NavLink>
-          <div className="absolute z-90 left-[210px] top-0 ml-2 w-48 bg-white text-black rounded-lg shadow-lg opacity-0 group-hover:opacity-100 group-hover:translate-x-0 transform -translate-x-2 transition-all duration-300 ease-in-out z-20 overflow-y-auto max-h-64">
+          <div className="absolute z-90 left-full top-0 ml-0 w-48 bg-white text-black rounded-lg shadow-lg opacity-0 group-hover:opacity-100 group-hover:translate-x-0 transform -translate-x-2 transition-all duration-300 ease-in-out z-20 overflow-y-auto max-h-64">
             <NavLink
               to="/admin/products/add"
               className="block px-4 py-2 hover:bg-amber-100 rounded-t-lg"
@@ -105,7 +105,7 @@ const Sidebar: React.FC = () => {
           >
             Manage Orders
           </NavLink>
-          <div className="absolute z-90 left-[220px] top-0 ml-2 w-48 bg-white text-black rounded-lg shadow-lg opacity-0 group-hover:opacity-100 group-hover:translate-x-0 transform -translate-x-2 transition-all duration-300 ease-in-out z-20 overflow-y-auto max-h-64">
+          <div className="absolute z-90 left-full top-0 ml-0 w-48 bg-white text-black rounded-lg shadow-lg opacity-0 group-hover:opacity-100 group-hover:translate-x-0 transform -translate-x-2 transition-all duration-300 ease-in-out z-20 overflow-y-auto max-h-64">
             <NavLink
               to="/admin/all-orders"
               className="block px-4 py-2 hover:bg-amber-100 rounded-t-lg"

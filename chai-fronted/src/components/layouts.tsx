@@ -7,7 +7,7 @@ import { SignIn } from "../pages/SignIn";
 import { SignUp } from "../pages/SignUp";
 import UserDashboard from "../pages/userDashboard";
 import { Users } from "lucide-react";
-import { useEffect } from "react";
+import { JSX, useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./Navbar";
 import { LocalBlog } from "./LocalBlog";
@@ -15,6 +15,7 @@ import { LocalShowcase } from "./LocalShowcase";
 import { LandingPageHome } from "./LangingHome";
 import Footer from "./Footer";
 import PremiumPage from "./Primium";
+import ProtectedAdminRoute from "./ProtectedAdminRoute";
 
 
 
@@ -65,12 +66,47 @@ function Layout() {
           <Route path="/user/dashboard" element={<UserDashboard />} />
           <Route path="/all-product" element={<AllProductsU />} />
 
-          <Route path="/admin/dashboard" element={<Dashboard />} />
-          <Route path="/admin/all-orders" element={<AdminOrders />} />
-          <Route path="/admin/products/all" element={<AdminAllProducts />} />
-          <Route path="/admin/products/add" element={<AddProduct />} />
-          <Route path="/admin/users" element={<Users />} />
-        </Routes>
+          <Route
+                path="/admin/dashboard"
+                element={
+                  <ProtectedAdminRoute>
+                    <Dashboard />
+                  </ProtectedAdminRoute>
+                }
+              />
+              <Route
+                path="/admin/all-orders"
+                element={
+                  <ProtectedAdminRoute>
+                    <AdminOrders />
+                  </ProtectedAdminRoute>
+                }
+              />
+              <Route
+                path="/admin/products/all"
+                element={
+                  <ProtectedAdminRoute>
+                    <AdminAllProducts />
+                  </ProtectedAdminRoute>
+                }
+              />
+              <Route
+                path="/admin/products/add"
+                element={
+                  <ProtectedAdminRoute>
+                    <AddProduct />
+                  </ProtectedAdminRoute>
+                }
+              />
+              <Route
+                path="/admin/users"
+                element={
+                  <ProtectedAdminRoute>
+                    <Users />
+                  </ProtectedAdminRoute>
+                }
+              />
+          </Routes>
       </div>
 
       {/*  Footer will always be rendered */}
@@ -80,3 +116,4 @@ function Layout() {
 }
 
 export default Layout;
+

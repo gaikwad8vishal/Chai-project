@@ -4,7 +4,6 @@ import { getOrderStats, getAllUsers, getAllOrders, getCustomerOrders } from "../
 import { Card, CardContent, CardTitle } from "../../components/ui/card";
 import { Users, Package, DollarSign } from "lucide-react";
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, PieChart, Pie, Cell } from "recharts";
-import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
 
 
@@ -96,11 +95,11 @@ const Dashboard = () => {
     <div className="adminbody h-screen">
       <Navbar />
       <div className="">
-        <div className="gap-4 flex">
+        <div className="gap-[260px]  flex">
           <div className="ml-4">
             <Sidebar />
           </div>
-          <div className="border-xl">
+          <div className="border-xl mt-12">
             <main className="flex-1 p-6 mx-4 rounded-xl bg-white/20 dark:bg-gray-900">
               <h1 className="text-3xl font-bold mb-6 text-white">Admin Dashboard</h1>
 
@@ -219,7 +218,6 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 };

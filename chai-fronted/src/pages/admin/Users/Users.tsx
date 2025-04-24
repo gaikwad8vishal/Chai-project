@@ -82,7 +82,7 @@ const Users = () => {
   if (loading) return <p className="text-center text-gray-500">Loading users...</p>;
 
   return (
-    <div className="px-24 py-8 bg-[#c4a27a]">
+    <div className="px-24 py-8 ">
     <div className="p-6  rounded-xl bg-white/10  h-screen">
       <h2 className="text-xl font-bold mb-4">User Management</h2>
       <table className="w-full border-collapse border border-gray-300">

@@ -13,7 +13,7 @@ export default function LandingPage() {
       <div className="blob blob3"></div>
 
       {/* ✅ SignIn & SignUp Modal Rendering */}
-      {openModal === "signin" && <SignIn closeModal={() => setOpenModal(null)} />}
+      {openModal === "signin" && <SignIn  />}
       {openModal === "signup" && <SignUp closeModal={() => setOpenModal(null)} />}
 
       {/* 🔥 Buttons to Open Modals */}

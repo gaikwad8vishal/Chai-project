@@ -18,7 +18,7 @@ const TermsPage = () => {
       {/* Add more sections based on your platform's policies */}
       <h2 className="text-xl font-semibold mt-6">3. Changes to Terms</h2>
       <p>
-        We may update these terms from time to time. You will be notified of any significant changes, and your continued use of the website signifies your acceptance of those changes.
+        We may update these terms from time to time. You will be notified of any significant changes, and your continued use of the website signifies your acceptance of those changes. 
       </p>
     </div>
   );

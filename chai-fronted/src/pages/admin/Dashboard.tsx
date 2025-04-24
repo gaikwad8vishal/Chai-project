@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Sidebar from "../../components/Sidebar";
 import { getOrderStats, getAllUsers, getAllOrders, getCustomerOrders } from "../../api/admin";
 import { Card, CardContent, CardTitle } from "../../components/ui/card";
 import { Users, Package, DollarSign } from "lucide-react";
@@ -140,10 +139,7 @@ const Dashboard = () => {
     <div className="adminbody min-h-screen flex flex-col">
       <Navbar />
       <div className="flex flex-grow">
-        <div className="hidden md:block ml-4">
-          <Sidebar />
-        </div>
-        <main className="flex-1 md:ml-72 p-6 mx-4 mt-12 rounded-xl bg-white/20 dark:bg-gray-900">
+        <main className="flex-1 p-6 mx-4 mt-12 rounded-xl bg-white/20 dark:bg-gray-900">
           <h1 className="text-3xl font-bold mb-6 text-white">Admin Dashboard</h1>
 
           {/* Cards Section */}
@@ -239,49 +235,16 @@ const Dashboard = () => {
           <div className="mt-8">
             <div className="bg-white/20 dark:bg-gray-800 p-6 rounded-lg shadow-lg">
               <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-semibold text-white">
-                  {viewMode === "recent" ? "Recent Orders" : "Customer Orders"}
+                <h2 className="text-xl  p-2 rounded font-semibold text-gray-700">
+                  Recent Orders...
                 </h2>
-                <div className="flex items-center gap-4">
-                  <button
-                    onClick={() => setViewMode("recent")}
-                    className={`px-4 py-2 rounded-md ${
-                      viewMode === "recent" ? "bg-yellow-500 text-black" : "bg-gray-700 text-white"
-                    }`}
-                  >
-                    Recent Orders
-                  </button>
-                  <button
-                    onClick={() => setViewMode("customer")}
-                    className={`px-4 py-2 rounded-md ${
-                      viewMode === "customer" ? "bg-yellow-500 text-black" : "bg-gray-700 text-white"
-                    }`}
-                  >
-                    Customer Orders
-                  </button>
-                  {viewMode === "customer" && (
-                    <select
-                      value={selectedUserId || ""}
-                      onChange={(e) => setSelectedUserId(e.target.value)}
-                      className="bg-gray-700 text-white rounded-md p-2"
-                      disabled={loading}
-                    >
-                      <option value="">Select a customer</option>
-                      {users.map((user) => (
-                        <option key={user.id} value={user.id}>
-                          {user.username}
-                        </option>
-                      ))}
-                    </select>
-                  )}
-                </div>
               </div>
               {loading ? (
                 <div className="animate-pulse bg-white/20 h-[120px] rounded-lg" />
               ) : (
                 <ul role="list">
                   {orders.length === 0 ? (
-                    <li className="text-white">
+                    <li className="text-gray-500">
                       {viewMode === "recent"
                         ? "No recent orders available."
                         : selectedUserId
@@ -292,7 +255,7 @@ const Dashboard = () => {
                     orders.map((order) => (
                       <li
                         key={order.id}
-                        className="border-b py-2 flex justify-between text-white"
+                        className="border-b py-2 flex justify-between text-gray-800"
                         role="listitem"
                       >
                         <span>Order: {order.productName}</span>
@@ -316,7 +279,7 @@ const Dashboard = () => {
           </div>
         </main>
       </div>
-      <AdminFooter className="mt-auto" />
+      <AdminFooter />
     </div>
   );
 };
@@ -328,13 +291,13 @@ export default Dashboard;
 import { FaEnvelope, FaCog } from "react-icons/fa";
 import { motion } from "framer-motion";
 
-const AdminFooter = () => {
+export const AdminFooter = () => {
   return (
     <motion.footer
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: "easeInOut" }}
-      className="bg-white/10 dark:bg-gray-900 py-8 mt-10 border-t border-gray-700"
+      className="  py-8 mt-10 border-t border-gray-700"
     >
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

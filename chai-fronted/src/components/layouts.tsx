@@ -18,6 +18,7 @@ import ProtectedAdminRoute from "./ProtectedAdminRoute";
 import Users from "../pages/admin/Users/Users"
 import TermsPage from "./terms";
 import PrivacyPage from "./privacy";
+import { Sidebar } from "lucide-react";
 
 
 
@@ -76,7 +77,6 @@ function Layout() {
           <Route path="/all-product" element={<AllProductsU />} />
           <Route path="/terms" element={<TermsPage />} />
           <Route path="/privacy" element={<PrivacyPage />} />
-
           <Route
             path="/admin/dashboard"
             element={

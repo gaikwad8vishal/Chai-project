@@ -122,7 +122,7 @@ export function SignUp({ closeModal }: SignUpProps) {
             {loading ? "Signing up..." : "Sign Up"}
           </button>
         </form>
-
+ 
         <p className="text-center text-sm mt-5">
           Already have an account?{" "} 
           <a href="/signin" className="text-green-600 font-medium hover:underline">

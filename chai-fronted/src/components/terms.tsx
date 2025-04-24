@@ -12,7 +12,7 @@ const TermsPage = () => {
         These terms govern your access to and use of our website, as well as any products or services available through our website. By using this site, you agree to comply with these terms.
       </p>
       <h2 className="text-xl font-semibold mt-6">2. Use of the Website</h2>
-      <p>
+      <p> 
         You must use this website in accordance with all applicable laws and regulations. You may not use the website for any illegal or unauthorized purposes.
       </p>
       {/* Add more sections based on your platform's policies */}

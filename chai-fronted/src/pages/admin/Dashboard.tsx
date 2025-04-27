@@ -242,7 +242,6 @@ const Dashboard = () => {
               {loading ? (
                 <div className="animate-pulse bg-white/20 h-[120px] rounded-lg" />
               ) : (
-                
                 <ul role="list">
                   {orders.length === 0 ? (
                     <li className="text-gray-500">
